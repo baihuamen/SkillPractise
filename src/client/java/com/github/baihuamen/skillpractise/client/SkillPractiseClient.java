@@ -1,12 +1,12 @@
 package com.github.baihuamen.skillpractise.client;
 
 import com.github.baihuamen.skillpractise.client.hud.SkillPractiseHud;
+import com.github.baihuamen.skillpractise.client.screen.SkillPractiseScreen;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStroke;
 import net.fabricmc.api.ClientModInitializer;
 import org.jetbrains.annotations.Nullable;
 
 public class SkillPractiseClient implements ClientModInitializer {
-
 
 
     @Nullable
@@ -18,13 +18,12 @@ public class SkillPractiseClient implements ClientModInitializer {
         this.skillPractiseHud = null;
         this.keyStroke = new KeyStroke();
     }
+
     @Override
     public void onInitializeClient() {
-
-
-            skillPractiseHud = new SkillPractiseHud();
-            skillPractiseHud.register();
-            KeyStroke.register();
-
+        skillPractiseHud = new SkillPractiseHud();
+        skillPractiseHud.register();
+        KeyStroke.register();
+        SkillPractiseScreen.register();
     }
 }
