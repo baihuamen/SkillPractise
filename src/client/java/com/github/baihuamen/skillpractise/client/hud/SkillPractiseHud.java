@@ -1,5 +1,6 @@
 package com.github.baihuamen.skillpractise.client.hud;
 
+import com.github.baihuamen.skillpractise.client.config.SkillPractiseScreenConfig;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStroke;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStrokeType;
 import net.fabricmc.api.EnvType;
@@ -25,9 +26,12 @@ public class SkillPractiseHud {
     public MultiValueDebugSampleLogImpl rightKeyChartLog = new MultiValueDebugSampleLogImpl(1);
 
     public void register() {
-        HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerAfter(IdentifiedLayer.MISC_OVERLAYS, Identifier.of("skillpractise", "skillpractise/skillpractisehud"), (context, tickCounter) -> {
-            render(context);
-        }));
+        HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerAfter(
+                IdentifiedLayer.MISC_OVERLAYS,
+                Identifier.of("skillpractise", "skillpractise/skillpractisehud"),
+                (context, tickCounter) -> {
+                    render(context);
+                }));
 
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -63,11 +67,6 @@ public class SkillPractiseHud {
             this.leftKeyChartHud = new KeyChartHud(client.textRenderer, leftKeyChartLog, true, "LeftKey");
             this.rightKeyChartHud = new KeyChartHud(client.textRenderer, rightKeyChartLog, true, "RightKey");
 
-            backKeyChartHud.enabled = true;
-            forwardKeyChartHud.enabled = true;
-            leftKeyChartHud.enabled = true;
-            rightKeyChartHud.enabled = true;
-
             for (int i = 0; i < 240; i++) {
                 backKeyChartLog.push(0);
                 forwardKeyChartLog.push(0);
@@ -78,6 +77,11 @@ public class SkillPractiseHud {
     }
 
     private void render(DrawContext drawContext) {
+        backKeyChartHud.enabled = SkillPractiseScreenConfig.enabledBackKeyChart;
+        forwardKeyChartHud.enabled = SkillPractiseScreenConfig.enabledForwardKeyChart;
+        leftKeyChartHud.enabled = SkillPractiseScreenConfig.enabledLeftKeyChart;
+        rightKeyChartHud.enabled = SkillPractiseScreenConfig.enabledRightKeyChart;
+
         backKeyChartHud.render(drawContext, 0, 100);
         forwardKeyChartHud.render(drawContext, 100, 100);
         leftKeyChartHud.render(drawContext, 200, 100);
