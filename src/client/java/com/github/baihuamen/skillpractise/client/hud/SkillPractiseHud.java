@@ -8,8 +8,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
@@ -27,12 +25,9 @@ public class SkillPractiseHud {
     public MultiValueDebugSampleLogImpl rightKeyChartLog = new MultiValueDebugSampleLogImpl(1);
 
     public void register() {
-        HudLayerRegistrationCallback.EVENT.register(layeredDrawer ->
-                layeredDrawer.attachLayerAfter(IdentifiedLayer.MISC_OVERLAYS,
-                        Identifier.of("skillpractise", "skillpractise/skillpractisehud"),
-                        (context, tickCounter) -> {
-                            render(context);
-                        }));
+        HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerAfter(IdentifiedLayer.MISC_OVERLAYS, Identifier.of("skillpractise", "skillpractise/skillpractisehud"), (context, tickCounter) -> {
+            render(context);
+        }));
 
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -63,15 +58,15 @@ public class SkillPractiseHud {
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
 
-            this.backKeyChartHud = new KeyChartHud(client.textRenderer, backKeyChartLog);
-            this.forwardKeyChartHud = new KeyChartHud(client.textRenderer, forwardKeyChartLog);
-            this.leftKeyChartHud = new KeyChartHud(client.textRenderer, leftKeyChartLog);
-            this.rightKeyChartHud = new KeyChartHud(client.textRenderer, rightKeyChartLog);
+            this.backKeyChartHud = new KeyChartHud(client.textRenderer, backKeyChartLog, true, "BackwardKey");
+            this.forwardKeyChartHud = new KeyChartHud(client.textRenderer, forwardKeyChartLog, true, "ForwardKey");
+            this.leftKeyChartHud = new KeyChartHud(client.textRenderer, leftKeyChartLog, true, "LeftKey");
+            this.rightKeyChartHud = new KeyChartHud(client.textRenderer, rightKeyChartLog, true, "RightKey");
 
-            backKeyChartHud.enabled = false;
+            backKeyChartHud.enabled = true;
             forwardKeyChartHud.enabled = true;
-            leftKeyChartHud.enabled = false;
-            rightKeyChartHud.enabled = false;
+            leftKeyChartHud.enabled = true;
+            rightKeyChartHud.enabled = true;
 
             for (int i = 0; i < 240; i++) {
                 backKeyChartLog.push(0);
