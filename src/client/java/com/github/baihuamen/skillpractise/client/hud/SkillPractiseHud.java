@@ -16,10 +16,15 @@ import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
 
 @Environment(EnvType.CLIENT)
 public class SkillPractiseHud {
-    private TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-    private KeyChartHud keyChartHud;
+    private KeyChartHud forwardKeyChartHud;
+    private KeyChartHud backKeyChartHud;
+    private KeyChartHud leftKeyChartHud;
+    private KeyChartHud rightKeyChartHud;
 
-    public MultiValueDebugSampleLogImpl keyChartLog = new MultiValueDebugSampleLogImpl(1);
+    public MultiValueDebugSampleLogImpl forwardKeyChartLog = new MultiValueDebugSampleLogImpl(1);
+    public MultiValueDebugSampleLogImpl backKeyChartLog = new MultiValueDebugSampleLogImpl(1);
+    public MultiValueDebugSampleLogImpl leftKeyChartLog = new MultiValueDebugSampleLogImpl(1);
+    public MultiValueDebugSampleLogImpl rightKeyChartLog = new MultiValueDebugSampleLogImpl(1);
 
     public void register() {
         HudLayerRegistrationCallback.EVENT.register(layeredDrawer ->
@@ -34,24 +39,53 @@ public class SkillPractiseHud {
 
             if (client.player == null) return;
 
+            if (KeyStroke.updateMap.get(KeyStrokeType.W).isRelease) {
+                forwardKeyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.W).interval);
+                KeyStroke.updateMap.get(KeyStrokeType.W).interval = 0;
+                KeyStroke.updateMap.get(KeyStrokeType.W).isRelease = false;
+            }
             if (KeyStroke.updateMap.get(KeyStrokeType.S).isRelease) {
-                keyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.S).interval);
+                backKeyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.S).interval);
                 KeyStroke.updateMap.get(KeyStrokeType.S).interval = 0;
                 KeyStroke.updateMap.get(KeyStrokeType.S).isRelease = false;
+            }
+            if (KeyStroke.updateMap.get(KeyStrokeType.A).isRelease) {
+                leftKeyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.A).interval);
+                KeyStroke.updateMap.get(KeyStrokeType.A).interval = 0;
+                KeyStroke.updateMap.get(KeyStrokeType.A).isRelease = false;
+            }
+            if (KeyStroke.updateMap.get(KeyStrokeType.D).isRelease) {
+                rightKeyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.D).interval);
+                KeyStroke.updateMap.get(KeyStrokeType.D).interval = 0;
+                KeyStroke.updateMap.get(KeyStrokeType.D).isRelease = false;
             }
         });
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            this.keyChartHud = new KeyChartHud(textRenderer, keyChartLog);
-            this.keyChartHud = new KeyChartHud(client.textRenderer, keyChartLog);
+
+            this.backKeyChartHud = new KeyChartHud(client.textRenderer, backKeyChartLog);
+            this.forwardKeyChartHud = new KeyChartHud(client.textRenderer, forwardKeyChartLog);
+            this.leftKeyChartHud = new KeyChartHud(client.textRenderer, leftKeyChartLog);
+            this.rightKeyChartHud = new KeyChartHud(client.textRenderer, rightKeyChartLog);
+
+            backKeyChartHud.enabled = false;
+            forwardKeyChartHud.enabled = true;
+            leftKeyChartHud.enabled = false;
+            rightKeyChartHud.enabled = false;
 
             for (int i = 0; i < 240; i++) {
-                keyChartLog.push(0);
+                backKeyChartLog.push(0);
+                forwardKeyChartLog.push(0);
+                leftKeyChartLog.push(0);
+                rightKeyChartLog.push(0);
             }
         });
     }
 
     private void render(DrawContext drawContext) {
-        this.keyChartHud.render(drawContext, 0, 100);
+        backKeyChartHud.render(drawContext, 0, 100);
+        forwardKeyChartHud.render(drawContext, 100, 100);
+        leftKeyChartHud.render(drawContext, 200, 100);
+        rightKeyChartHud.render(drawContext, 300, 100);
     }
 }

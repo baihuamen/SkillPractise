@@ -31,6 +31,26 @@ public class KeyStroke {
                 updateMap.get(KeyStrokeType.S).setReleased(true);
             }
 
+            if (MinecraftClient.getInstance().options.forwardKey.isPressed()) {
+                updateMap.get(KeyStrokeType.W).addInterval();
+            }
+            else if (updateMap.get(KeyStrokeType.W).interval!= 0){
+                updateMap.get(KeyStrokeType.W).setReleased(true);
+            }
+
+            if (MinecraftClient.getInstance().options.leftKey.isPressed()) {
+                updateMap.get(KeyStrokeType.A).addInterval();
+            }
+            else if (updateMap.get(KeyStrokeType.A).interval!= 0) {
+                updateMap.get(KeyStrokeType.A).setReleased(true);
+            }
+
+            if (MinecraftClient.getInstance().options.rightKey.isPressed()) {
+                updateMap.get(KeyStrokeType.D).addInterval();
+            }
+            else if (updateMap.get(KeyStrokeType.D).interval!= 0) {
+                updateMap.get(KeyStrokeType.D).setReleased(true);
+            }
         });
     }
 }
