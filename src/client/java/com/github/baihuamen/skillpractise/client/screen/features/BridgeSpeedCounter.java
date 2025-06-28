@@ -1,4 +1,4 @@
-package com.github.baihuamen.skillpractise.client.hud;
+package com.github.baihuamen.skillpractise.client.screen.features;
 
 import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.Event;
@@ -55,7 +55,7 @@ public class BridgeSpeedCounter extends ScreenConfig {
 
         openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.skillpractise.bridgespeedcounter.open",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_R,
+                GLFW.GLFW_LOCK_KEY_MODS,
                 "SkillPractise"));
     }
 
