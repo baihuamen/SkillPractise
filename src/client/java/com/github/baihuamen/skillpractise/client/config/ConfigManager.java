@@ -82,9 +82,10 @@ public class ConfigManager {
 
     public static void saveConfig() {
         JsonObject jsonObject = new JsonObject();
-        configMap.forEach((screenConfigName, configMap) -> {
-            configMap.forEach((configName, configValue) -> {
-                JsonObject configJsonObject = new JsonObject();
+        configMap.forEach((screenConfigName, currentConfigMap) -> {
+            JsonObject configJsonObject = new JsonObject();
+            currentConfigMap.forEach((configName, configValue) -> {
+
                 if (configValue instanceof BooleanValue) {
                     configJsonObject.addProperty(configName, ((BooleanValue) configValue).value);
                 }
