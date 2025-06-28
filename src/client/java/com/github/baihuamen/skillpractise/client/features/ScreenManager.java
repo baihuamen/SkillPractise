@@ -19,7 +19,6 @@ public class ScreenManager extends EventListener {
 
 
     public ScreenManager() {
-        screensMap.put(TestScreen.class,new TestScreen());
         screensMap.put(SkillPractiseScreen.class,new SkillPractiseScreen());
 
         screensMap.forEach((screenConfigClass, screenConfig) -> {
