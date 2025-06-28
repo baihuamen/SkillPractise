@@ -1,4 +1,4 @@
-package com.github.baihuamen.skillpractise.client.config;
+package com.github.baihuamen.skillpractise.client.screen;
 
 public class SkillPractiseScreenConfig {
     public static boolean enabledForwardKeyChart = true;

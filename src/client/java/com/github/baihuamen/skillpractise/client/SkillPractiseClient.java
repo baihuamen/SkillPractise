@@ -1,5 +1,8 @@
 package com.github.baihuamen.skillpractise.client;
 
+import com.github.baihuamen.skillpractise.client.config.ConfigManager;
+import com.github.baihuamen.skillpractise.client.event.EventManager;
+import com.github.baihuamen.skillpractise.client.features.ScreenManager;
 import com.github.baihuamen.skillpractise.client.hud.SkillPractiseHud;
 import com.github.baihuamen.skillpractise.client.screen.SkillPractiseScreen;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStroke;
@@ -8,11 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class SkillPractiseClient implements ClientModInitializer {
 
-
     @Nullable
     private SkillPractiseHud skillPractiseHud;
     private final KeyStroke keyStroke;
-
 
     public SkillPractiseClient() {
         this.skillPractiseHud = null;
@@ -25,5 +26,8 @@ public class SkillPractiseClient implements ClientModInitializer {
         skillPractiseHud.register();
         KeyStroke.register();
         SkillPractiseScreen.register();
+        EventManager.register();
+        ConfigManager.register();
+        ScreenManager screenManager = new ScreenManager();
     }
 }
