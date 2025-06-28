@@ -4,6 +4,7 @@ import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
 import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import com.github.baihuamen.skillpractise.client.event.events.ClientStartedEvent;
+import com.github.baihuamen.skillpractise.client.screen.SkillPractiseScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class ScreenManager extends EventListener {
 
     public ScreenManager() {
         screensMap.put(TestScreen.class,new TestScreen());
+        screensMap.put(SkillPractiseScreen.class,new SkillPractiseScreen());
 
         screensMap.forEach((screenConfigClass, screenConfig) -> {
             screenConfig.register();

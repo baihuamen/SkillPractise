@@ -24,6 +24,7 @@ public class EventManager {
     }
 
     public static void callEvent(Class<? extends Event> event) {
+        if (!eventList.containsKey(event)) return;
         eventList.get(event).forEach(EventVoid::onEvent);
     }
 

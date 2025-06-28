@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ScreenConfig extends EventListener {
+
     public Screen screen;
+
     public abstract String name();
 
     public Map<String, Object> configMap = new HashMap<>();
@@ -21,29 +23,33 @@ public abstract class ScreenConfig extends EventListener {
         screen = new Screen(Text.of(name())) {
             @Override
             protected void init() {
-                configMap.forEach((configName, configValue) -> {
+                int componentIndex = 0;
+                for (Map.Entry<String, Object> entry : configMap.entrySet()) {
+                    String configName = entry.getKey();
+                    var configValue = entry.getValue();
                     if (configValue instanceof BooleanValue) {
-                        ButtonWidget buttonWidget = ButtonWidget
-                                .builder(Text.of(String.valueOf(((BooleanValue) configValue).value)), button -> {
-                                    ((BooleanValue) configValue).invert();
-                                    button.setMessage(Text.of(String.valueOf(((BooleanValue) configValue).value)));
-                                })
-                                .dimensions(this.width / 2 - 100, this.height / 6 + 48, 200, 20)
-                                .build();
-
+                        ButtonWidget buttonWidget = ButtonWidget.builder(Text.of(String.valueOf(((BooleanValue) configValue).value)), button -> {
+                            ((BooleanValue) configValue).invert();
+                            button.setMessage(Text.of(String.valueOf(((BooleanValue) configValue).value)));
+                        }).dimensions(this.width * 6 / 10, 50 * componentIndex + 10, this.width * 3 / 10, 40).build();
                         addDrawableChild(buttonWidget);
+                        componentIndex++;
                     }
-                });
+                }
             }
 
             @Override
             public void render(DrawContext context, int mouseX, int mouseY, float delta) {
                 super.render(context, mouseX, mouseY, delta);
-                configMap.forEach((configName, configValue) -> {
+                int componentIndex = 0;
+                for (Map.Entry<String, Object> entry : configMap.entrySet()) {
+                    String configName = entry.getKey();
+                    var configValue = entry.getValue();
                     if (configValue instanceof BooleanValue) {
-                        context.drawTextWithShadow(this.textRenderer, Text.of(configName ), this.width / 2 - 100, this.height / 6 + 48, 0xFFFFFF);
+                        context.drawTextWithShadow(this.textRenderer, Text.of(configName), this.width * 1 / 10, 50 * componentIndex + 10, 0xFFFFFF);
                     }
-                });
+                    componentIndex++;
+                }
             }
         };
     }

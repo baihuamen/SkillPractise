@@ -2,6 +2,7 @@ package com.github.baihuamen.skillpractise.client;
 
 import com.github.baihuamen.skillpractise.client.config.ConfigManager;
 import com.github.baihuamen.skillpractise.client.event.EventManager;
+import com.github.baihuamen.skillpractise.client.event.events.OnInitializeClientEvent;
 import com.github.baihuamen.skillpractise.client.features.ScreenManager;
 import com.github.baihuamen.skillpractise.client.hud.SkillPractiseHud;
 import com.github.baihuamen.skillpractise.client.screen.SkillPractiseScreen;
@@ -25,9 +26,9 @@ public class SkillPractiseClient implements ClientModInitializer {
         skillPractiseHud = new SkillPractiseHud();
         skillPractiseHud.register();
         KeyStroke.register();
-        SkillPractiseScreen.register();
         EventManager.register();
         ConfigManager.register();
         ScreenManager screenManager = new ScreenManager();
+        EventManager.callEvent(OnInitializeClientEvent.class);
     }
 }

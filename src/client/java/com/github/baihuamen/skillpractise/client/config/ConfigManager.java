@@ -61,6 +61,10 @@ public class ConfigManager {
             if (object.get(configName) instanceof BooleanValue) {
                 return (T) object.get(configName);
             }
+            else if (defaultValue instanceof BooleanValue) {
+                object.put(configName, defaultValue);
+                return defaultValue;
+            }
             return null;
         }
     }
