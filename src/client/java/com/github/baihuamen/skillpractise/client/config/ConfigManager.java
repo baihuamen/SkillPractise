@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.text.Text;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -60,8 +59,7 @@ public class ConfigManager {
             var object = configMap.get(screenConfigName);
             if (object.get(configName) instanceof BooleanValue) {
                 return (T) object.get(configName);
-            }
-            else if (defaultValue instanceof BooleanValue) {
+            } else if (defaultValue instanceof BooleanValue) {
                 object.put(configName, defaultValue);
                 return defaultValue;
             }
@@ -73,7 +71,6 @@ public class ConfigManager {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
             if (System.currentTimeMillis() - lastSaveTime >= 30000) {
-                client.player.sendMessage(Text.of("Saving Config"), false);
                 saveConfig();
                 lastSaveTime = System.currentTimeMillis();
             }
