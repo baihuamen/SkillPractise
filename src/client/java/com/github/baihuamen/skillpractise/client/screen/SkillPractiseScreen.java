@@ -23,7 +23,7 @@ public class SkillPractiseScreen extends ScreenConfig {
     private Class<? extends Event> registerScreen = registerEvent(OnInitializeClientEvent.class, () -> {
         openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.skillpractise.open",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_R,
+                GLFW.GLFW_LOCK_KEY_MODS,
                 "SkillPractise"));
     });
 
