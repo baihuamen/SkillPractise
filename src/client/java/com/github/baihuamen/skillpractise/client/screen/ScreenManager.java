@@ -2,8 +2,9 @@ package com.github.baihuamen.skillpractise.client.screen;
 
 import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
-import com.github.baihuamen.skillpractise.client.event.events.TickEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 import com.github.baihuamen.skillpractise.client.screen.features.BridgeSpeedCounter;
+import com.github.baihuamen.skillpractise.client.screen.features.CPSCounterHud;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -44,8 +45,9 @@ public class ScreenManager extends EventListener {
     public ScreenManager() {
         screensMap.put(SkillPractiseScreen.class, new SkillPractiseScreen());
         screensMap.put(BridgeSpeedCounter.class, new BridgeSpeedCounter());
+        screensMap.put(CPSCounterHud.class, new CPSCounterHud());
         screensMap.forEach((screenConfigClass, screenConfig) -> {
-            screenConfig.register();
+            screenConfig.initialize();
         });
         screen = new Screen(Text.of("SkillPractise")) {
             @Override

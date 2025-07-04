@@ -1,8 +1,8 @@
 package com.github.baihuamen.skillpractise.client.event;
 
-import com.github.baihuamen.skillpractise.client.event.events.ClientEndedEvent;
-import com.github.baihuamen.skillpractise.client.event.events.ClientStartedEvent;
-import com.github.baihuamen.skillpractise.client.event.events.TickEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.ClientEndedEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.ClientStartedEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
@@ -13,19 +13,35 @@ import java.util.Map;
 
 public class EventManager {
 
-    public static Map<Class<? extends Event>, ArrayList<EventVoid>> eventList = new HashMap<>();
+    public static Map<Class<? extends Event>, ArrayList<EventVoid>> commonEventList = new HashMap<>();
+    public static Map<Class<? extends EventReturnable>, ArrayList<EventVoidReturnable>> returnableEventList = new HashMap<>();
 
     public static void registerEvent(Class<? extends Event> event, EventVoid eventVoid) {
-        if (!eventList.containsKey(event)) {
-            eventList.put(event, new ArrayList<>(List.of(eventVoid)));
+        if (!commonEventList.containsKey(event)) {
+            commonEventList.put(event, new ArrayList<>(List.of(eventVoid)));
         } else {
-            eventList.get(event).add(eventVoid);
+            commonEventList.get(event).add(eventVoid);
+        }
+    }
+
+    public static void registerEvent(Class<? extends EventReturnable> event, EventVoidReturnable eventVoidReturnable){
+        if (!returnableEventList.containsKey(event)) {
+            returnableEventList.put(event, new ArrayList<>(List.of(eventVoidReturnable)));
+        } else {
+            returnableEventList.get(event).add(eventVoidReturnable);
         }
     }
 
     public static void callEvent(Class<? extends Event> event) {
-        if (!eventList.containsKey(event)) return;
-        eventList.get(event).forEach(EventVoid::onEvent);
+        if (!commonEventList.containsKey(event)) return;
+        commonEventList.get(event).forEach(EventVoid::onEvent);
+    }
+
+    public static void callEvent(Class<? extends EventReturnable> event, Object eventReturnValue){
+        if (!returnableEventList.containsKey(event.getClass())) return;
+        returnableEventList.get(event.getClass()).forEach(eventVoidReturnable -> {
+            eventVoidReturnable.onEvent(eventReturnValue);
+        });
     }
 
     public static void register() {

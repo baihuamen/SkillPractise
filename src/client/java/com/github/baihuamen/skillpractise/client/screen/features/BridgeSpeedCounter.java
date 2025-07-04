@@ -2,18 +2,14 @@ package com.github.baihuamen.skillpractise.client.screen.features;
 
 import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.Event;
-import com.github.baihuamen.skillpractise.client.event.events.TickEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import org.lwjgl.glfw.GLFW;
 
 import static com.github.baihuamen.skillpractise.client.utils.render.RendererUtils.renderNumber;
 
@@ -34,8 +30,6 @@ public class BridgeSpeedCounter extends ScreenConfig {
 
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
-    private static KeyBinding openKey;
-
     private BooleanValue isDisplaySpeedPerSecond = Boolean("DisplayerSpeedPerSecond", true);
     private BooleanValue isDisplaySpeedPerSecondGround = Boolean("DisplaySpeedPerSecondGround", true);
     private BooleanValue isDisplaySpeedInTwiceJump = Boolean("DisplaySpeedInTwiceJump", true);
@@ -52,11 +46,6 @@ public class BridgeSpeedCounter extends ScreenConfig {
             if (client.player == null) return;
             render(context);
         }));
-
-        openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.skillpractise.bridgespeedcounter.open",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_LOCK_KEY_MODS,
-                "SkillPractise"));
     }
 
     private final Class<? extends Event> tickHandler = registerEvent(TickEvent.class, () -> {
@@ -81,10 +70,6 @@ public class BridgeSpeedCounter extends ScreenConfig {
         }
         speedFlash = client.player.speed;
         wasGrounding = client.player.isOnGround();
-
-        if(openKey.wasPressed()){
-            client.setScreen(screen);
-        }
     });
 
 

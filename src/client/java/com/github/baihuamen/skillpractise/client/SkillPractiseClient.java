@@ -2,7 +2,7 @@ package com.github.baihuamen.skillpractise.client;
 
 import com.github.baihuamen.skillpractise.client.config.ConfigManager;
 import com.github.baihuamen.skillpractise.client.event.EventManager;
-import com.github.baihuamen.skillpractise.client.event.events.OnInitializeClientEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.OnInitializeClientEvent;
 import com.github.baihuamen.skillpractise.client.screen.ScreenManager;
 import com.github.baihuamen.skillpractise.client.screen.features.BridgeSpeedCounter;
 import com.github.baihuamen.skillpractise.client.hud.SkillPractiseHud;

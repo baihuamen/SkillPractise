@@ -6,4 +6,9 @@ public class EventListener {
         EventManager.registerEvent(event, eventVoid);
         return event;
     }
+
+    public static <I> Class<? extends EventReturnable> registerEvent(Class<? extends EventReturnable> event, EventVoidReturnable<I> eventVoidReturnable) {
+        EventManager.registerEvent(event,eventVoidReturnable);
+        return event;
+    }
 }

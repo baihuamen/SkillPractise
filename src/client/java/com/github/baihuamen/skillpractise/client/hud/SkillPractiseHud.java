@@ -2,8 +2,8 @@ package com.github.baihuamen.skillpractise.client.hud;
 
 import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
-import com.github.baihuamen.skillpractise.client.event.events.ClientStartedEvent;
-import com.github.baihuamen.skillpractise.client.event.events.TickEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.ClientStartedEvent;
+import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 import com.github.baihuamen.skillpractise.client.screen.SkillPractiseScreenConfig;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStroke;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStrokeType;

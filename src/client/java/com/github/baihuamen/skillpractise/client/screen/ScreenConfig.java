@@ -3,10 +3,14 @@ package com.github.baihuamen.skillpractise.client.screen;
 import com.github.baihuamen.skillpractise.client.config.ConfigManager;
 import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
+import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,4 +67,18 @@ public abstract class ScreenConfig extends EventListener {
 
     public void register() {
     }
+
+    public void initialize(){
+
+        HudLayerRegistrationCallback.EVENT.register(
+                layeredDrawer -> layeredDrawer.attachLayerAfter(
+                        IdentifiedLayer.MISC_OVERLAYS,
+                        Identifier.of(name().toLowerCase(), "skillpractise/skillpractisehud/"),
+                        this::onRenderEvent
+                )
+        );
+        register();
+    }
+
+    public void onRenderEvent(DrawContext context, RenderTickCounter tickCounter){};
 }

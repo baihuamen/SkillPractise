@@ -1,9 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.github.baihuamen.skillpractise.mixin.client",
+  "package": "com.github.baihuamen.skillpractise.client.mixins",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "minecraft.MixinsClientInteraction",
+    "minecraft.MixinsKeyBinding"
   ],
   "injectors": {
     "defaultRequire": 1
