@@ -6,7 +6,6 @@ import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickE
 import com.github.baihuamen.skillpractise.client.screen.features.BridgeSpeedCounter;
 import com.github.baihuamen.skillpractise.client.screen.features.CPSCounterHud;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.KeyBinding;
@@ -17,6 +16,8 @@ import org.lwjgl.glfw.GLFW;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
+
 public class ScreenManager extends EventListener {
 
 
@@ -25,13 +26,9 @@ public class ScreenManager extends EventListener {
 
 
     private static KeyBinding openKey;
-
-
-    private static MinecraftClient client = MinecraftClient.getInstance();
-
     private final Class<? extends Event> tickHandler = registerEvent(TickEvent.class, () -> {
         if (openKey.wasPressed()) {
-            client.setScreen(screen);
+            mc.setScreen(screen);
         }
     });
 
@@ -57,10 +54,11 @@ public class ScreenManager extends EventListener {
                 int indexX = 0;
                 int indexY = 0;
                 for (Map.Entry<Class<? extends ScreenConfig>, ScreenConfig> screenConfig : screensMap.entrySet()) {
-                    ButtonWidget buttonWidget = ButtonWidget.builder(Text.of(screenConfig.getValue().name()), onPress -> {
+                    ButtonWidget buttonWidget = ButtonWidget.builder(Text.of(screenConfig.getValue()
+                                    .name()), onPress -> {
                                 client.setScreen(screenConfig.getValue().screen);
                             })
-                            .dimensions((indexX + 1) * this.width /5 + 10, (indexY  + 1) * this.height / 5 + 10,  this.width / 6 , this.height / 9 )
+                            .dimensions((indexX + 1) * this.width / 5 + 10, (indexY + 1) * this.height / 5 + 10, this.width / 6, this.height / 9)
                             .build();
                     addDrawableChild(buttonWidget);
                     indexX++;

@@ -16,6 +16,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
 
+import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
+
 @Environment(EnvType.CLIENT)
 public class SkillPractiseHud extends EventListener {
 
@@ -53,11 +55,11 @@ public class SkillPractiseHud extends EventListener {
     });
 
     private final Class<? extends Event> clientStartedEvent = registerEvent(ClientStartedEvent.class, () -> {
-        MinecraftClient client = MinecraftClient.getInstance();
-        this.backKeyChartHud = new KeyChartHud(client.textRenderer, backKeyChartLog, true, "BackwardKey");
-        this.forwardKeyChartHud = new KeyChartHud(client.textRenderer, forwardKeyChartLog, true, "ForwardKey");
-        this.leftKeyChartHud = new KeyChartHud(client.textRenderer, leftKeyChartLog, true, "LeftKey");
-        this.rightKeyChartHud = new KeyChartHud(client.textRenderer, rightKeyChartLog, true, "RightKey");
+
+        this.backKeyChartHud = new KeyChartHud(mc.textRenderer, backKeyChartLog, true, "BackwardKey");
+        this.forwardKeyChartHud = new KeyChartHud(mc.textRenderer, forwardKeyChartLog, true, "ForwardKey");
+        this.leftKeyChartHud = new KeyChartHud(mc.textRenderer, leftKeyChartLog, true, "LeftKey");
+        this.rightKeyChartHud = new KeyChartHud(mc.textRenderer, rightKeyChartLog, true, "RightKey");
         for (int i = 0; i < 240; i++) {
             backKeyChartLog.push(0);
             forwardKeyChartLog.push(0);

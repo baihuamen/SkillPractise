@@ -6,11 +6,11 @@ import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickE
 import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
+import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
 import static com.github.baihuamen.skillpractise.client.utils.render.RendererUtils.renderNumber;
 
 public class BridgeSpeedCounter extends ScreenConfig {
@@ -28,8 +28,6 @@ public class BridgeSpeedCounter extends ScreenConfig {
     private int tickCounter = 0;
     private long checkMileSecond = 0;
 
-    private static final MinecraftClient client = MinecraftClient.getInstance();
-
     private BooleanValue isDisplaySpeedPerSecond = Boolean("DisplayerSpeedPerSecond", true);
     private BooleanValue isDisplaySpeedPerSecondGround = Boolean("DisplaySpeedPerSecondGround", true);
     private BooleanValue isDisplaySpeedInTwiceJump = Boolean("DisplaySpeedInTwiceJump", true);
@@ -43,34 +41,48 @@ public class BridgeSpeedCounter extends ScreenConfig {
     @Override
     public void register() {
         HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerAfter(IdentifiedLayer.MISC_OVERLAYS, Identifier.of("bridgespeecounter", "skillpractise/skillpractisehud"), (context, tickCounter) -> {
-            if (client.player == null) return;
+            if (mc.player == null) return;
             render(context);
         }));
     }
 
     private final Class<? extends Event> tickHandler = registerEvent(TickEvent.class, () -> {
         tickCounter++;
-        if (client.player == null) return;
-        if (wasGrounding != client.player.isOnGround() && client.player.isOnGround() == false) {
-            startJumpPosition = client.player.getPos();
+        if (mc.player == null) return;
+        calculateSpeedInTwiceJump();
+        calculateSpeedPerSecond();
+        calculateSpeedFlash();
+        wasGrounding = mc.player.isOnGround();
+    });
+
+    private static void calculateSpeedFlash() {
+        Vec3d currentPos = mc.player.getPos();
+        Vec3d prevPos = new Vec3d(mc.player.prevX, mc.player.prevY, mc.player.prevZ);
+        speedFlash = currentPos.distanceTo(prevPos) / 0.05;
+    }
+
+    private void calculateSpeedPerSecond() {
+        if (System.currentTimeMillis() - checkMileSecond >= 1000) {
+            if (lastSecondPositon != null) {
+                speedPerSecond = mc.player.getPos().distanceTo(lastSecondPositon) / 1000L;
+                speedPerSecondGround = Math.sqrt(Math.pow(mc.player.getPos().x - lastSecondPositon.x, 2) + Math.pow(mc.player.getPos().z - lastSecondPositon.z, 2));
+            }
+            lastSecondPositon = mc.player.getPos();
+        }
+    }
+
+    private void calculateSpeedInTwiceJump() {
+        if (wasGrounding != mc.player.isOnGround() && mc.player.isOnGround() == false) {
+            startJumpPosition = mc.player.getPos();
             startJumpTick = tickCounter;
         }
-        if (wasGrounding != client.player.isOnGround() && client.player.isOnGround()) {
+        if (wasGrounding != mc.player.isOnGround() && mc.player.isOnGround()) {
             if (startJumpPosition != null) {
-                speedInTwiceJump = (client.player.getPos()
+                speedInTwiceJump = (mc.player.getPos()
                         .distanceTo(startJumpPosition)) / ((tickCounter - startJumpTick) * 0.05);
             }
         }
-        if (System.currentTimeMillis() - checkMileSecond >= 1000) {
-            if (lastSecondPositon != null) {
-                speedPerSecond = client.player.getPos().distanceTo(lastSecondPositon) / 1000L;
-                speedPerSecondGround = Math.sqrt(Math.pow(client.player.getPos().x - lastSecondPositon.x, 2) + Math.pow(client.player.getPos().z - lastSecondPositon.z, 2));
-            }
-            lastSecondPositon = client.player.getPos();
-        }
-        speedFlash = client.player.speed;
-        wasGrounding = client.player.isOnGround();
-    });
+    }
 
 
     private void render(DrawContext context) {

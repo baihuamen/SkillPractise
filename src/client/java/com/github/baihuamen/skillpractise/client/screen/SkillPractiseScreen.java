@@ -5,6 +5,7 @@ import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 
 public class SkillPractiseScreen extends ScreenConfig {
+
     private BooleanValue forwardKeyChartDisplay = Boolean("ForwardKeyChartDisplay", true);
     private BooleanValue backKeyChartDisplay = Boolean("BackKeyChartDisplay", true);
     private BooleanValue leftKeyChartDisplay = Boolean("LeftKeyChartDisplay", true);

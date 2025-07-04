@@ -1,6 +1,7 @@
 package com.github.baihuamen.skillpractise.client.screen;
 
 public class SkillPractiseScreenConfig {
+
     public static boolean enabledForwardKeyChart = true;
     public static int forwardKeyX = 100;
     public static boolean enabledBackKeyChart = true;

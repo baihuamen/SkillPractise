@@ -68,8 +68,7 @@ public abstract class ScreenConfig extends EventListener {
     public void register() {
     }
 
-    public void initialize(){
-
+    public void initialize() {
         HudLayerRegistrationCallback.EVENT.register(
                 layeredDrawer -> layeredDrawer.attachLayerAfter(
                         IdentifiedLayer.MISC_OVERLAYS,
@@ -80,5 +79,8 @@ public abstract class ScreenConfig extends EventListener {
         register();
     }
 
-    public void onRenderEvent(DrawContext context, RenderTickCounter tickCounter){};
+    public void onRenderEvent(DrawContext context, RenderTickCounter tickCounter) {
+    }
+
+    ;
 }
