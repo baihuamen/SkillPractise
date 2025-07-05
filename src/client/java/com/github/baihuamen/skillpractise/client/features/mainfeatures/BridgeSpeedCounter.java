@@ -119,16 +119,18 @@ public class BridgeSpeedCounter extends ScreenConfig {
 
     private void render(DrawContext context) {
         if (isDisplaySpeedFlash.value) {
-            renderNumber(context, speedFlash, "speedFlash:", 5, 0, 10, 0xFFFFFF, true);
+            renderNumber(context, speedFlash, translate("speedFlash") + ":", 5, 0, 10, 0xFFFFFF, true);
         }
         if (isDisplaySpeedPerSecond.value) {
-            renderNumber(context, speedPerSecond, "speedPerSecond:", 5, 0, 20, 0xFFFFFF, true);
+            renderNumber(context, speedPerSecond, translate("speedPerSecond") + ":",
+                    5, 0, 20, 0xFFFFFF, true);
         }
         if (isDisplaySpeedPerSecondGround.value) {
-            renderNumber(context, speedPerSecondGround, "speedPerSecondGround:", 5, 0, 30, 0xFFFFFF, true);
+            renderNumber(context, speedPerSecondGround, translate("speedPerSecondGround") + ":",
+                    5, 0, 30, 0xFFFFFF, true);
         }
         if (isDisplaySpeedInTwiceJump.value) {
-            renderNumber(context, speedInTwiceJump, "speedInTwiceJump:", 5, 0, 40, 0xFFFFFF, true);
+            renderNumber(context, speedInTwiceJump, translate("speedInTwiceJump") + ":", 5, 0, 40, 0xFFFFFF, true);
         }
     }
 }

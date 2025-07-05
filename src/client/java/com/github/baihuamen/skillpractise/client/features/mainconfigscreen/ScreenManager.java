@@ -98,7 +98,7 @@ public class ScreenManager extends EventListener {
                 int indexX = 0;
                 int indexY = 0;
                 for (Map.Entry<Class<? extends ScreenConfig>, ScreenConfig> screenConfig : screensMap.entrySet()) {
-                    ButtonWidget buttonWidget = ButtonWidget.builder(Text.of(screenConfig.getValue()
+                    ButtonWidget buttonWidget = ButtonWidget.builder(Text.translatable("skillpractise.screen."  + screenConfig.getValue()
                                     .name()), onPress -> client.setScreen(screenConfig.getValue().screen))
                             .dimensions((indexX + 1) * this.width / 5 + 10, (indexY + 1) * this.height / 5 + 10, this.width / 6, this.height / 9)
                             .build();

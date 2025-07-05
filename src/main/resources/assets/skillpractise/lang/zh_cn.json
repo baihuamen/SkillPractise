@@ -10,5 +10,18 @@
   "skillpractise.features.bridgespeedcounter.displayspeedflash": "显示瞬时搭路速度",
   "skillpractise.features.bridgespeedcounter.displayspeedpersecondground": "显示在地面上的每秒搭路速度",
   "skillpractise.features.bridgespeedcounter.displayspeedintwicejump": "显示两次跳跃之间的每秒搭路速度",
-  "skillpractise.features.cpscounterhud.showcps": "显示 CPS"
+  "skillpractise.features.cpscounterhud.showcps": "显示 CPS",
+  "skillpractise.screen.KeyChartHudConfigScreen": "按键图表屏幕设置",
+  "skillpractise.screen.NightVisionRender": "夜视渲染设置",
+  "skillpractise.screen.InteractBlockTips": "交互方块提示设置",
+  "skillpractise.screen.CPSCounterHud": "CPS 计数器设置",
+  "skillpractise.screen.BridgeSpeedCounter": "搭路速度计数器设置",
+  "skillpractise.features.keycharthudconfigscreen.backwardkey": "后退键",
+  "skillpractise.features.keycharthudconfigscreen.forwardkey": "前进键",
+  "skillpractise.features.keycharthudconfigscreen.leftkey": "左移键",
+  "skillpractise.features.keycharthudconfigscreen.rightkey": "右移键",
+  "skillpractise.features.bridgespeedcounter.speedflash": "瞬时搭路速度",
+  "skillpractise.features.bridgespeedcounter.speedpersecond": "每秒搭路速度",
+  "skillpractise.features.bridgespeedcounter.speedpersecondground": "地面上的每秒搭路速度",
+  "skillpractise.features.bridgespeedcounter.speedintwicejump": "两次跳跃之间的每秒搭路速度"
 }

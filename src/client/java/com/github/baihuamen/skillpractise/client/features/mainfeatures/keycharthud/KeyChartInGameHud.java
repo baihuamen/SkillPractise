@@ -86,10 +86,28 @@ public class KeyChartInGameHud extends EventListener {
 
     @SuppressWarnings("unused")
     private final Class<?> clientStartedEvent = registerEvent(ClientStartedEvent.class, event -> {
-        this.backKeyChartHud = new KeyChartHud(mc().textRenderer, backKeyChartLog, true, "BackwardKey");
-        this.forwardKeyChartHud = new KeyChartHud(mc().textRenderer, forwardKeyChartLog, true, "ForwardKey");
-        this.leftKeyChartHud = new KeyChartHud(mc().textRenderer, leftKeyChartLog, true, "LeftKey");
-        this.rightKeyChartHud = new KeyChartHud(mc().textRenderer, rightKeyChartLog, true, "RightKey");
+        this.backKeyChartHud = new KeyChartHud(
+                mc().textRenderer,
+                backKeyChartLog, true,
+                ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("BackwardKey"
+                ));
+        this.forwardKeyChartHud = new KeyChartHud(
+                mc().textRenderer,
+                forwardKeyChartLog,
+                true,
+                ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("ForwardKey"
+                ));
+        this.leftKeyChartHud = new KeyChartHud(
+                mc().textRenderer,
+                leftKeyChartLog,
+                true,
+                ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("LeftKey"
+                ));
+        this.rightKeyChartHud = new KeyChartHud(
+                mc().textRenderer,
+                rightKeyChartLog,
+                true,
+                ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("RightKey"));
         for (int i = 0; i < 240; i++) {
             backKeyChartLog.push(0);
             forwardKeyChartLog.push(0);

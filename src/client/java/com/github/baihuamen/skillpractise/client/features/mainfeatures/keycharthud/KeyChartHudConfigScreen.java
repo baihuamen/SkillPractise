@@ -40,7 +40,9 @@ public class KeyChartHudConfigScreen extends ScreenConfig {
     public BooleanValue leftKeyChartDisplay = Boolean("LeftKeyChartDisplay", true);
     public BooleanValue rightKeyChartDisplay = Boolean("RightKeyChartDisplay", true);
 
-
+    public String getTranslate(String name){
+        return this.translate(name);
+    }
     @Override
     public String name() {
         return "KeyChartHudConfigScreen";
