@@ -26,11 +26,13 @@ public class ScreenManager extends EventListener {
 
 
     private static KeyBinding openKey;
-    private final Class<?> tickHandler = registerEvent(TickEvent.class,event-> {
+    private final Class<?> tickHandler = registerEvent(TickEvent.class, event -> {
         if (openKey.wasPressed()) {
             mc().setScreen(screen);
         }
     });
+
+    public static ScreenManager INSTANCE;
 
     public static void register() {
         openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.skillpractise.screenmanager.open",
@@ -39,8 +41,13 @@ public class ScreenManager extends EventListener {
                 "SkillPractise"));
     }
 
+    public <T extends ScreenConfig> T getInstance(Class<T> screenConfigClass) {
+        return (T) screensMap.get(screenConfigClass);
+    }
+
     public ScreenManager() {
-            screensMap.put(SkillPractiseScreen.class, new SkillPractiseScreen());
+        INSTANCE = this;
+        screensMap.put(SkillPractiseScreen.class, new SkillPractiseScreen());
         screensMap.put(BridgeSpeedCounter.class, new BridgeSpeedCounter());
         screensMap.put(CPSCounterHud.class, new CPSCounterHud());
         screensMap.put(InteractBlockTips.class, new InteractBlockTips());
