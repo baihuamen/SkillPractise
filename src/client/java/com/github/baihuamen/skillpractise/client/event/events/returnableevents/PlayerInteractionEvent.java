@@ -1,7 +1,7 @@
 package com.github.baihuamen.skillpractise.client.event.events.returnableevents;
 
-import com.github.baihuamen.skillpractise.client.event.EventReturnable;
+import net.minecraft.util.Hand;
 
-public class PlayerInteractionEvent extends EventReturnable {
+public record PlayerInteractionEvent(Hand hand) {}
 
-}
+

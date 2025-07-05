@@ -1,6 +1,4 @@
 package com.github.baihuamen.skillpractise.client.event.events.commonevents;
 
-import com.github.baihuamen.skillpractise.client.event.Event;
-
-public class ClientStartedEvent extends Event {
+public class ClientStartedEvent {
 }

@@ -1,9 +1,8 @@
 package com.github.baihuamen.skillpractise.client.mixins.minecraft;
 
-import com.github.baihuamen.skillpractise.client.screen.features.CPSCounterHud;
+import com.github.baihuamen.skillpractise.client.features.CPSCounterHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

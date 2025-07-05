@@ -1,7 +1,6 @@
-package com.github.baihuamen.skillpractise.client.screen.features;
+package com.github.baihuamen.skillpractise.client.features;
 
 import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
-import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
@@ -46,7 +45,7 @@ public class BridgeSpeedCounter extends ScreenConfig {
         }));
     }
 
-    private final Class<? extends Event> tickHandler = registerEvent(TickEvent.class, () -> {
+    private final Class<?> tickHandler = registerEvent(TickEvent.class, event -> {
         tickCounter++;
         if (mc.player == null) return;
         calculateSpeedInTwiceJump();
@@ -64,10 +63,12 @@ public class BridgeSpeedCounter extends ScreenConfig {
     private void calculateSpeedPerSecond() {
         if (System.currentTimeMillis() - checkMileSecond >= 1000) {
             if (lastSecondPositon != null) {
-                speedPerSecond = mc.player.getPos().distanceTo(lastSecondPositon) / 1000L;
+                speedPerSecond = mc.player.getPos().distanceTo(lastSecondPositon);
                 speedPerSecondGround = Math.sqrt(Math.pow(mc.player.getPos().x - lastSecondPositon.x, 2) + Math.pow(mc.player.getPos().z - lastSecondPositon.z, 2));
             }
             lastSecondPositon = mc.player.getPos();
+
+            checkMileSecond = System.currentTimeMillis();
         }
     }
 

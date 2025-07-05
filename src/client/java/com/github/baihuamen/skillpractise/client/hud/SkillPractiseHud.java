@@ -1,6 +1,5 @@
 package com.github.baihuamen.skillpractise.client.hud;
 
-import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.ClientStartedEvent;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
@@ -11,7 +10,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
@@ -31,7 +29,7 @@ public class SkillPractiseHud extends EventListener {
     public static MultiValueDebugSampleLogImpl leftKeyChartLog = new MultiValueDebugSampleLogImpl(1);
     public static MultiValueDebugSampleLogImpl rightKeyChartLog = new MultiValueDebugSampleLogImpl(1);
 
-    private final static Class<? extends Event> tickEvent = registerEvent(TickEvent.class, () -> {
+    private final static Class<?> tickEvent = registerEvent(TickEvent.class, event -> {
         if (KeyStroke.updateMap.get(KeyStrokeType.W).isRelease) {
             forwardKeyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.W).interval);
             KeyStroke.updateMap.get(KeyStrokeType.W).interval = 0;
@@ -54,7 +52,7 @@ public class SkillPractiseHud extends EventListener {
         }
     });
 
-    private final Class<? extends Event> clientStartedEvent = registerEvent(ClientStartedEvent.class, () -> {
+    private final Class<?> clientStartedEvent = registerEvent(ClientStartedEvent.class, event -> {
 
         this.backKeyChartHud = new KeyChartHud(mc.textRenderer, backKeyChartLog, true, "BackwardKey");
         this.forwardKeyChartHud = new KeyChartHud(mc.textRenderer, forwardKeyChartLog, true, "ForwardKey");

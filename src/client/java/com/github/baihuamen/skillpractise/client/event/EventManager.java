@@ -10,50 +10,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
-public class EventManager {
+public final class EventManager {
 
-    public static Map<Class<? extends Event>, ArrayList<EventVoid>> commonEventList = new HashMap<>();
-    public static Map<Class<? extends EventReturnable>, ArrayList<EventVoidReturnable>> returnableEventList = new HashMap<>();
 
-    public static void registerEvent(Class<? extends Event> event, EventVoid eventVoid) {
-        if (!commonEventList.containsKey(event)) {
-            commonEventList.put(event, new ArrayList<>(List.of(eventVoid)));
-        } else {
-            commonEventList.get(event).add(eventVoid);
-        }
+    private static final Map<Class<?>, List<Consumer>> eventMap = new HashMap<>();
+
+    public static EventManager INSTANCE = new EventManager();
+
+
+    public EventManager() {
+        INSTANCE = this;
+        register();
     }
 
-    public static void registerEvent(Class<? extends EventReturnable> event, EventVoidReturnable eventVoidReturnable){
-        if (!returnableEventList.containsKey(event)) {
-            returnableEventList.put(event, new ArrayList<>(List.of(eventVoidReturnable)));
-        } else {
-            returnableEventList.get(event).add(eventVoidReturnable);
-        }
-    }
-
-    public static void callEvent(Class<? extends Event> event) {
-        if (!commonEventList.containsKey(event)) return;
-        commonEventList.get(event).forEach(EventVoid::onEvent);
-    }
-
-    public static void callEvent(Class<? extends EventReturnable> event, Object eventReturnValue){
-        if (!returnableEventList.containsKey(event.getClass())) return;
-        returnableEventList.get(event.getClass()).forEach(eventVoidReturnable -> {
-            eventVoidReturnable.onEvent(eventReturnValue);
-        });
-    }
-
-    public static void register() {
+    private void register(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player == null) return;
-            callEvent(TickEvent.class);
+            callEvent(new TickEvent());
         });
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            callEvent(ClientStartedEvent.class);
+            callEvent(new ClientStartedEvent());
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
-            callEvent(ClientEndedEvent.class);
+            callEvent(new ClientEndedEvent());
         });
+    }
+    public <T> void registerEvent(Class<T> eventType, Consumer<T> consumer) {
+        eventMap.computeIfAbsent(eventType, k -> new ArrayList<>()).add(consumer);
+    }
+
+    public void callEvent(Object event) {
+        Class<?> eventType = event.getClass();
+        if (eventMap.containsKey(eventType)) {
+            for (Consumer<Object> consumer : eventMap.get(eventType)) {
+                if(eventType.isInstance(event)){
+                    consumer.accept(event);
+                }
+            }
+        }
     }
 }

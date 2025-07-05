@@ -1,4 +1,4 @@
-package com.github.baihuamen.skillpractise.client.screen.features;
+package com.github.baihuamen.skillpractise.client.features;
 
 import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
 import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;

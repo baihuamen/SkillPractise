@@ -1,10 +1,10 @@
 package com.github.baihuamen.skillpractise.client.screen;
 
-import com.github.baihuamen.skillpractise.client.event.Event;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
-import com.github.baihuamen.skillpractise.client.screen.features.BridgeSpeedCounter;
-import com.github.baihuamen.skillpractise.client.screen.features.CPSCounterHud;
+import com.github.baihuamen.skillpractise.client.features.BridgeSpeedCounter;
+import com.github.baihuamen.skillpractise.client.features.CPSCounterHud;
+import com.github.baihuamen.skillpractise.client.features.InteractBlockTips;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -26,7 +26,7 @@ public class ScreenManager extends EventListener {
 
 
     private static KeyBinding openKey;
-    private final Class<? extends Event> tickHandler = registerEvent(TickEvent.class, () -> {
+    private final Class<?> tickHandler = registerEvent(TickEvent.class,event-> {
         if (openKey.wasPressed()) {
             mc.setScreen(screen);
         }
@@ -40,9 +40,10 @@ public class ScreenManager extends EventListener {
     }
 
     public ScreenManager() {
-        screensMap.put(SkillPractiseScreen.class, new SkillPractiseScreen());
+            screensMap.put(SkillPractiseScreen.class, new SkillPractiseScreen());
         screensMap.put(BridgeSpeedCounter.class, new BridgeSpeedCounter());
         screensMap.put(CPSCounterHud.class, new CPSCounterHud());
+        screensMap.put(InteractBlockTips.class, new InteractBlockTips());
         screensMap.forEach((screenConfigClass, screenConfig) -> {
             screenConfig.initialize();
         });
