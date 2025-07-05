@@ -1,7 +1,14 @@
 {
-  "skillpractise.screenmanager.openkey" : "打开模组配置",
-  "skillpractise.features.keycharthudconfigscreen.forwardkeychartdisplay" : "前进按键图表显示",
-  "skillpractise.features.keycharthudconfigscreen.backwardkeychartdisplay" : "后退按键图表显示",
-  "skillpractise.features.keycharthudconfigscreen.leftkeychartdisplay" : "左移按键图表显示",
-  "skillpractise.features.keycharthudconfigscreen.rightkeychartdisplay" : "右移按键图表显示"
+  "skillpractise.screenmanager.openkey": "打开模组配置",
+  "skillpractise.features.keycharthudconfigscreen.forwardkeychartdisplay": "前进按键图表显示",
+  "skillpractise.features.keycharthudconfigscreen.backkeychartdisplay": "后退按键图表显示",
+  "skillpractise.features.keycharthudconfigscreen.leftkeychartdisplay": "左移按键图表显示",
+  "skillpractise.features.keycharthudconfigscreen.rightkeychartdisplay": "右移按键图表显示",
+  "skillpractise.features.interactblocktips.enable": "启用交互方块提示",
+  "skillpractise.features.nightvisionrender.enable": "启用夜视渲染",
+  "skillpractise.features.bridgespeedcounter.displayerspeedpersecond": "显示每秒搭路速度",
+  "skillpractise.features.bridgespeedcounter.displayspeedflash": "显示瞬时搭路速度",
+  "skillpractise.features.bridgespeedcounter.displayspeedpersecondground": "显示在地面上的每秒搭路速度",
+  "skillpractise.features.bridgespeedcounter.displayspeedintwicejump": "显示两次跳跃之间的每秒搭路速度",
+  "skillpractise.features.cpscounterhud.showcps": "显示 CPS"
 }
