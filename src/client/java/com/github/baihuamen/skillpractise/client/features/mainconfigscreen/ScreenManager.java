@@ -5,6 +5,7 @@ import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickE
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.BridgeSpeedCounter;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.CPSCounterHud;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.InteractBlockTips;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.NightVisionRender;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud.KeyChartHudConfigScreen;
 import com.github.baihuamen.skillpractise.client.features.ScreenConfig;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -53,6 +54,7 @@ public class ScreenManager extends EventListener {
         screensMap.put(BridgeSpeedCounter.class, new BridgeSpeedCounter());
         screensMap.put(CPSCounterHud.class, new CPSCounterHud());
         screensMap.put(InteractBlockTips.class, new InteractBlockTips());
+        screensMap.put(NightVisionRender.class, new NightVisionRender());
         screensMap.forEach((screenConfigClass, screenConfig) -> {
             screenConfig.initialize();
         });
