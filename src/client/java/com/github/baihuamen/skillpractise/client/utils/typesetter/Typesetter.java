@@ -1,4 +1,4 @@
-package com.github.baihuamen.skillpractise.client.screen;
+package com.github.baihuamen.skillpractise.client.utils.typesetter;
 
 import java.util.HashMap;
 import java.util.Map;

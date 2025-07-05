@@ -1,6 +1,6 @@
 package com.github.baihuamen.skillpractise.client.mixins.minecraft;
 
-import com.github.baihuamen.skillpractise.client.features.CPSCounterHud;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.CPSCounterHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;

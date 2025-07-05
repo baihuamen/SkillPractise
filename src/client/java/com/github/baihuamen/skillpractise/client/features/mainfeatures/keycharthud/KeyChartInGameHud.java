@@ -1,10 +1,10 @@
-package com.github.baihuamen.skillpractise.client.hud;
+package com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud;
 
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.ClientStartedEvent;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
-import com.github.baihuamen.skillpractise.client.screen.ScreenManager;
-import com.github.baihuamen.skillpractise.client.screen.SkillPractiseScreen;
+import com.github.baihuamen.skillpractise.client.features.mainconfigscreen.ScreenManager;
+import com.github.baihuamen.skillpractise.client.utils.hud.ingame.KeyChartHud;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStroke;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStrokeType;
 import net.fabricmc.api.EnvType;
@@ -18,7 +18,7 @@ import net.minecraft.util.profiler.MultiValueDebugSampleLogImpl;
 import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
 
 @Environment(EnvType.CLIENT)
-public class SkillPractiseHud extends EventListener {
+public class KeyChartInGameHud extends EventListener {
 
     private KeyChartHud forwardKeyChartHud;
     private KeyChartHud backKeyChartHud;
@@ -76,10 +76,10 @@ public class SkillPractiseHud extends EventListener {
     }
 
     private void render(DrawContext drawContext) {
-        backKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(SkillPractiseScreen.class).backKeyChartDisplay.value;
-        forwardKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(SkillPractiseScreen.class).forwardKeyChartDisplay.value;
-        leftKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(SkillPractiseScreen.class).leftKeyChartDisplay.value;
-        rightKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(SkillPractiseScreen.class).rightKeyChartDisplay.value;
+        backKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).backKeyChartDisplay.value;
+        forwardKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).forwardKeyChartDisplay.value;
+        leftKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).leftKeyChartDisplay.value;
+        rightKeyChartHud.enabled = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).rightKeyChartDisplay.value;
         backKeyChartHud.render(drawContext, 0, 100);
         forwardKeyChartHud.render(drawContext, 100, 100);
         leftKeyChartHud.render(drawContext, 200, 100);

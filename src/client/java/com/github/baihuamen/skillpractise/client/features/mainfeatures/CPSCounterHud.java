@@ -1,7 +1,7 @@
-package com.github.baihuamen.skillpractise.client.features;
+package com.github.baihuamen.skillpractise.client.features.mainfeatures;
 
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
-import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
+import com.github.baihuamen.skillpractise.client.features.ScreenConfig;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 

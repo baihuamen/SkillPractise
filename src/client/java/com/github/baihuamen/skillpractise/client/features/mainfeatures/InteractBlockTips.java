@@ -1,8 +1,8 @@
-package com.github.baihuamen.skillpractise.client.features;
+package com.github.baihuamen.skillpractise.client.features.mainfeatures;
 
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.events.returnableevents.PlayerInteractionBlockEvent;
-import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
+import com.github.baihuamen.skillpractise.client.features.ScreenConfig;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;

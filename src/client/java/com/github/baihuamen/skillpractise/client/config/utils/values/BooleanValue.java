@@ -1,6 +1,6 @@
 package com.github.baihuamen.skillpractise.client.config.utils.values;
 
-import com.github.baihuamen.skillpractise.client.screen.Typesetter;
+import com.github.baihuamen.skillpractise.client.utils.typesetter.Typesetter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.client.gui.DrawContext;

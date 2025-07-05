@@ -1,4 +1,4 @@
-package com.github.baihuamen.skillpractise.client.hud;
+package com.github.baihuamen.skillpractise.client.utils.hud.ingame;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,7 +15,7 @@ public class KeyChartHud extends DebugChart {
     public boolean enabled = true;
     public int maxHeight = 40;
 
-    protected KeyChartHud(TextRenderer textRenderer, MultiValueDebugSampleLog log, boolean enabled, String name) {
+    public KeyChartHud(TextRenderer textRenderer, MultiValueDebugSampleLog log, boolean enabled, String name) {
         super(textRenderer, log);
         this.enabled = enabled;
         this.name = name;
