@@ -40,6 +40,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
+import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.player;
 import static com.github.baihuamen.skillpractise.client.utils.render.RendererUtils.renderNumber;
 
 public class BridgeSpeedCounter extends ScreenConfig {
@@ -77,12 +78,12 @@ public class BridgeSpeedCounter extends ScreenConfig {
 
     @SuppressWarnings("unused")
     private final Class<?> tickHandler = registerEvent(TickEvent.class, event -> {
-        tickCounter++;
         if (mc().player == null) return;
         calculateSpeedInTwiceJump();
         calculateSpeedPerSecond();
         calculateSpeedFlash();
         wasGrounding = mc().player.isOnGround();
+        tickCounter++;
     });
 
     private static void calculateSpeedFlash() {
@@ -108,10 +109,11 @@ public class BridgeSpeedCounter extends ScreenConfig {
             startJumpPosition = mc().player.getPos();
             startJumpTick = tickCounter;
         }
-        if (wasGrounding != mc().player.isOnGround() && mc().player.isOnGround()) {
+         if (wasGrounding != mc().player.isOnGround() && mc().player.isOnGround()) {
             if (startJumpPosition != null) {
+                // 因为未知原因，tickEvent在12tick内会被调研22次，因此使用这样的计算方式
                 speedInTwiceJump = (mc().player.getPos()
-                        .distanceTo(startJumpPosition)) / ((tickCounter - startJumpTick) * 0.05);
+                        .distanceTo(startJumpPosition)) / ((((double) ((tickCounter - startJumpTick)) /2) * 0.05));
             }
         }
     }
