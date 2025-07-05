@@ -73,7 +73,7 @@ public class ScreenManager extends EventListener {
     public static ScreenManager INSTANCE;
 
     public static void register() {
-        openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.skillpractise.screenmanager.open",
+        openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("skillpractise.screenmanager.openkey",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_G,
                 "SkillPractise"));
