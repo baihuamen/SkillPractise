@@ -6,8 +6,10 @@ import com.github.baihuamen.skillpractise.client.event.EventManager;
 import com.github.baihuamen.skillpractise.client.screen.ScreenManager;
 import com.github.baihuamen.skillpractise.client.features.BridgeSpeedCounter;
 import com.github.baihuamen.skillpractise.client.hud.SkillPractiseHud;
+import com.github.baihuamen.skillpractise.client.utils.MinecraftUtils;
 import com.github.baihuamen.skillpractise.client.utils.keystroke.KeyStroke;
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.Nullable;
 
 public class SkillPractiseClient implements ClientModInitializer {

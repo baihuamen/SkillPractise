@@ -28,7 +28,7 @@ public class ScreenManager extends EventListener {
     private static KeyBinding openKey;
     private final Class<?> tickHandler = registerEvent(TickEvent.class,event-> {
         if (openKey.wasPressed()) {
-            mc.setScreen(screen);
+            mc().setScreen(screen);
         }
     });
 

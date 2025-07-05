@@ -1,6 +1,7 @@
 package com.github.baihuamen.skillpractise.client.mixins.minecraft;
 
 import com.github.baihuamen.skillpractise.client.event.EventManager;
+import com.github.baihuamen.skillpractise.client.event.events.returnableevents.PlayerInteractionBlockEvent;
 import com.github.baihuamen.skillpractise.client.event.events.returnableevents.PlayerInteractionEvent;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -21,7 +22,12 @@ public class MixinsClientInteraction {
     }
 
     @Inject(method = "interactBlock",at = @At("HEAD"),cancellable = false)
-    private void hookInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+    private void hookInteractBlockAtHead(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         EventManager.INSTANCE.callEvent(new PlayerInteractionEvent(hand));
+    }
+
+    @Inject(method = "interactBlock",at = @At("RETURN"),cancellable = false)
+    private void hookInteractBlockAtReturn(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+        EventManager.INSTANCE.callEvent(new PlayerInteractionBlockEvent(cir.getReturnValue(),hand,hitResult));
     }
 }

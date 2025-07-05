@@ -9,7 +9,7 @@ import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
 
 public class RendererUtils {
     public static void renderText(@NotNull DrawContext context, String text, int x, int y, int color, boolean shadow) {
-        context.drawText(mc.textRenderer, Text.of(text), x, y, color, shadow);
+        context.drawText(mc().textRenderer, Text.of(text), x, y, color, shadow);
     }
 
     public static void renderNumber(DrawContext context, double number, int length, int x, int y, int color, boolean shadow) {

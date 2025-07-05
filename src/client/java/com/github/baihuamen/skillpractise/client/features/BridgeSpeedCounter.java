@@ -40,46 +40,46 @@ public class BridgeSpeedCounter extends ScreenConfig {
     @Override
     public void register() {
         HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerAfter(IdentifiedLayer.MISC_OVERLAYS, Identifier.of("bridgespeecounter", "skillpractise/skillpractisehud"), (context, tickCounter) -> {
-            if (mc.player == null) return;
+            if (mc().player == null) return;
             render(context);
         }));
     }
 
     private final Class<?> tickHandler = registerEvent(TickEvent.class, event -> {
         tickCounter++;
-        if (mc.player == null) return;
+        if (mc().player == null) return;
         calculateSpeedInTwiceJump();
         calculateSpeedPerSecond();
         calculateSpeedFlash();
-        wasGrounding = mc.player.isOnGround();
+        wasGrounding = mc().player.isOnGround();
     });
 
     private static void calculateSpeedFlash() {
-        Vec3d currentPos = mc.player.getPos();
-        Vec3d prevPos = new Vec3d(mc.player.prevX, mc.player.prevY, mc.player.prevZ);
+        Vec3d currentPos = mc().player.getPos();
+        Vec3d prevPos = new Vec3d(mc().player.prevX, mc().player.prevY, mc().player.prevZ);
         speedFlash = currentPos.distanceTo(prevPos) / 0.05;
     }
 
     private void calculateSpeedPerSecond() {
         if (System.currentTimeMillis() - checkMileSecond >= 1000) {
             if (lastSecondPositon != null) {
-                speedPerSecond = mc.player.getPos().distanceTo(lastSecondPositon);
-                speedPerSecondGround = Math.sqrt(Math.pow(mc.player.getPos().x - lastSecondPositon.x, 2) + Math.pow(mc.player.getPos().z - lastSecondPositon.z, 2));
+                speedPerSecond = mc().player.getPos().distanceTo(lastSecondPositon);
+                speedPerSecondGround = Math.sqrt(Math.pow(mc().player.getPos().x - lastSecondPositon.x, 2) + Math.pow(mc().player.getPos().z - lastSecondPositon.z, 2));
             }
-            lastSecondPositon = mc.player.getPos();
+            lastSecondPositon = mc().player.getPos();
 
             checkMileSecond = System.currentTimeMillis();
         }
     }
 
     private void calculateSpeedInTwiceJump() {
-        if (wasGrounding != mc.player.isOnGround() && mc.player.isOnGround() == false) {
-            startJumpPosition = mc.player.getPos();
+        if (wasGrounding != mc().player.isOnGround() && mc().player.isOnGround() == false) {
+            startJumpPosition = mc().player.getPos();
             startJumpTick = tickCounter;
         }
-        if (wasGrounding != mc.player.isOnGround() && mc.player.isOnGround()) {
+        if (wasGrounding != mc().player.isOnGround() && mc().player.isOnGround()) {
             if (startJumpPosition != null) {
-                speedInTwiceJump = (mc.player.getPos()
+                speedInTwiceJump = (mc().player.getPos()
                         .distanceTo(startJumpPosition)) / ((tickCounter - startJumpTick) * 0.05);
             }
         }
