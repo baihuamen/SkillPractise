@@ -56,6 +56,16 @@ public abstract class ScreenConfig extends EventListener {
 
     public Map<String, Value> configMap = new HashMap<>();
 
+    protected String featureRootLanguageKey = "skillpractise.features.";
+
+    protected String translate(String name){
+        return Text.translatable(featureRootLanguageKey + name().toLowerCase() +  "." + name.toLowerCase()).getString();
+    }
+
+    protected Text translateText(String name){
+        return Text.translatable(featureRootLanguageKey + name().toLowerCase() +  "." + name.toLowerCase());
+    }
+
     public ScreenConfig() {
         screen = new Screen(Text.of(name())) {
             @Override

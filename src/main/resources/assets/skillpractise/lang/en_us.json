@@ -1,0 +1,28 @@
+{
+  "skillpractise.screenmanager.openkey" : "Open mod configuration",
+  "skillpractise.features.keycharthudconfigscreen.forwardkeychartdisplay" : "Forward key chart display",
+  "skillpractise.features.keycharthudconfigscreen.backkeychartdisplay" : "backward keychart display",
+  "skillpractise.features.keycharthudconfigscreen.leftkeychartdisplay" : "Left-key chart display",
+  "skillpractise.features.keycharthudconfigscreen.rightkeychartdisplay" : "Right-shift key chart display",
+  "skillpractise.features.interactblocktips.enable" : "Enable interact block tips",
+  "skillpractise.features.nightvisionrender.enable" : "Enable night vision render",
+  "skillpractise.features.bridgespeedcounter.displayerspeedpersecond" : "Display the speed of the bridge in blocks per second",
+  "skillpractise.features.bridgespeedcounter.displayspeedflash" : "Display the speed of the bridge in blocks per tick",
+  "skillpractise.features.bridgespeedcounter.displayspeedpersecondground" : "Display the speed of the bridge in blocks per second on the ground",
+  "skillpractise.features.bridgespeedcounter.displayspeedintwicejump" : "Display the speed of the bridge in blocks per second between two jumps",
+  "skillpractise.features.cpscounterhud.showcps" : "Show CPS",
+  "skillpractise.screen.KeyChartHudConfigScreen" : "Key Chart Screen Setting",
+  "skillpractise.screen.NightVisionRender" : "Night Vision Render Setting",
+  "skillpractise.screen.InteractBlockTips" : "Interact Block Tips Setting",
+  "skillpractise.screen.CPSCounterHud" : "CPS Counter Hud Setting",
+  "skillpractise.screen.BridgeSpeedCounter" : "Bridge Speed Counter Setting",
+  "skillpractise.features.keycharthudconfigscreen.backwardkey" : "BackwardKey",
+  "skillpractise.features.keycharthudconfigscreen.forwardkey" : "ForwardKey",
+  "skillpractise.features.keycharthudconfigscreen.leftkey" : "LeftKey",
+  "skillpractise.features.keycharthudconfigscreen.rightkey" : "RightKey",
+  "skillpractise.features.bridgespeedcounter.speedflash" : "SpeedFlash",
+  "skillpractise.features.bridgespeedcounter.speedpersecond" : "SpeedPerSecond",
+  "skillpractise.features.bridgespeedcounter.speedpersecondground" : "SpeedPerSecondGround",
+  "skillpractise.features.bridgespeedcounter.speedintwicejump" : "SpeedInTwiceJump"
+
+}

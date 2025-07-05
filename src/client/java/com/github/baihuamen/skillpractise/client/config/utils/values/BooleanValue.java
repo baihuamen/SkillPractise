@@ -39,6 +39,7 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 
 import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
@@ -64,13 +65,11 @@ public class BooleanValue implements Value{
 
     @Override
     public void render(DrawContext context,String screenName,Screen screen) {
-        context.drawTextWithShadow(mc().textRenderer, Text.of(name), screen.width / 10,Typesetter.getY(screenName,name), 0xFFFFFF);
+        context.drawTextWithShadow(mc().textRenderer, Text.translatable("skillpractise.features." + screenName.toLowerCase() + "." + name.toLowerCase()), screen.width / 10,Typesetter.getY(screenName,name), 0xFFFFFF);
     }
 
     @Override
     public <T extends Element & Drawable & Selectable> T achieveComponent(String name,Screen screen) {
-
-
         ButtonWidget buttonWidget = ButtonWidget.builder(Text.of(String.valueOf(value)), button -> {
             invert();
             button.setMessage(Text.of(String.valueOf(value)));
