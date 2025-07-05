@@ -1,13 +1,17 @@
 package com.github.baihuamen.skillpractise.client.config;
 
-import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.Value;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.impl.util.log.Log;
+import net.fabricmc.loader.impl.util.log.LogCategory;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,9 +39,22 @@ public class ConfigManager {
 
     private static long lastSaveTime = 0;
 
+    public static final List<Value> valueTypesList = List.of(new BooleanValue(null, null, false));
+
     static {
         JsonObject jsonObject = FileWriter.readConfig(configPath.resolve("config.json"));
-
+        /*
+          配置文件示例
+          ```
+          {
+               "屏幕1":{
+                   “键值1": true,
+                   "键值2": false,
+               },
+               "屏幕2": {},
+          }
+          ```
+         */
         // 外层配置，按屏幕分
         jsonObject.entrySet().forEach(entry -> {
             //获取内层配置，按单键值的键值分
@@ -45,18 +62,22 @@ public class ConfigManager {
             //遍历内层配置，按单键值的键值分
             configJsonObject.entrySet().forEach(configEntry -> {
                 if (configEntry.getValue().isJsonPrimitive()) {
-                    BooleanValue booleanValue = new BooleanValue(entry.getKey(), configEntry.getKey(), configEntry.getValue()
-                            .getAsBoolean());
-
+                    var valueInFile = configEntry.getValue();
+                    Value value = null;
+                    for (Value entryType : valueTypesList) {
+                        if (entryType.isCurrentValue(valueInFile)) {
+                            value = entryType.castToThisValue(entry.getKey(), configEntry.getKey(),valueInFile);
+                        }
+                    }
+                    if (value == null) {
+                        Log.error(LogCategory.LOG, "Unknown config type");
+                        return;
+                    }
+                    // 将读取好的键值放入配置表中
+                    configMap.putIfAbsent(entry.getKey(), new HashMap<>());
                     var currentConfigMap = configMap.get(entry.getKey());
-                    if (currentConfigMap != null) {
-                        currentConfigMap.put(configEntry.getKey(), booleanValue);
-                    }
-                    else {
-                        currentConfigMap = new HashMap<>();
-                        currentConfigMap.put(configEntry.getKey(), booleanValue);
-                    }
-                    configMap.put(entry.getKey(),currentConfigMap);
+                    currentConfigMap.put(configEntry.getKey(), value);
+                    configMap.put(entry.getKey(), currentConfigMap);
                 }
             });
         });
@@ -70,11 +91,27 @@ public class ConfigManager {
             return defaultValue;
         } else {
             var object = configMap.get(screenConfigName);
-            if (object.get(configName) instanceof BooleanValue) {
+            if(!(defaultValue instanceof Value)) return defaultValue;
+            boolean isTypeSupported = false;
+            for (Value valueType : valueTypesList) {
+                for (Object value : object.values()) {
+                    if(!(value instanceof Value)) continue;
+                    if (valueType.getClass().isInstance(value) && ((Value) value).name().equals(((Value) defaultValue).name())) {
+                        isTypeSupported = true;
+                        break;
+                    }
+                }
+            }
+            if(isTypeSupported){
                 return (T) object.get(configName);
-            } else if (defaultValue instanceof BooleanValue) {
-                object.put(configName, defaultValue);
-                return defaultValue;
+            }
+            else {
+                for (Value valueType : valueTypesList){
+                    if(defaultValue.getClass() == valueType.getClass()){
+                        configMap.get(screenConfigName).put(configName,defaultValue);
+                        return defaultValue;
+                    }
+                }
             }
             return null;
         }
@@ -94,17 +131,19 @@ public class ConfigManager {
     }
 
     public static void saveConfig() {
+
         JsonObject jsonObject = new JsonObject();
-        configMap.forEach((screenConfigName, currentConfigMap) -> {
+         configMap.forEach((screenConfigName, currentConfigMap) -> {
             JsonObject configJsonObject = new JsonObject();
             currentConfigMap.forEach((configName, configValue) -> {
-
-                if (configValue instanceof BooleanValue) {
-                    configJsonObject.addProperty(configName, ((BooleanValue) configValue).value);
-                }
+                valueTypesList.forEach(valueType -> {
+                    if (configValue.getClass() == valueType.getClass()) {
+                        configJsonObject.add(configName,((Value) configValue).getCurrentValue());
+                    }
+                });
                 jsonObject.add(screenConfigName, configJsonObject);
             });
         });
-        FileWriter.writeConfig(configPath.resolve("config.json"), jsonObject);
+         FileWriter.writeConfig(configPath.resolve("config.json"), jsonObject);
     }
 }

@@ -1,13 +1,13 @@
 package com.github.baihuamen.skillpractise.client.screen;
 
 import com.github.baihuamen.skillpractise.client.config.ConfigManager;
-import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.Value;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -21,38 +21,25 @@ public abstract class ScreenConfig extends EventListener {
 
     public abstract String name();
 
-    public Map<String, Object> configMap = new HashMap<>();
+    public Map<String, Value> configMap = new HashMap<>();
 
     public ScreenConfig() {
         screen = new Screen(Text.of(name())) {
             @Override
             protected void init() {
-                int componentIndex = 0;
-                for (Map.Entry<String, Object> entry : configMap.entrySet()) {
-                    String configName = entry.getKey();
+                for (Map.Entry<String, Value> entry : configMap.entrySet()) {
                     var configValue = entry.getValue();
-                    if (configValue instanceof BooleanValue) {
-                        ButtonWidget buttonWidget = ButtonWidget.builder(Text.of(String.valueOf(((BooleanValue) configValue).value)), button -> {
-                            ((BooleanValue) configValue).invert();
-                            button.setMessage(Text.of(String.valueOf(((BooleanValue) configValue).value)));
-                        }).dimensions(this.width * 6 / 10, 50 * componentIndex + 10, this.width * 3 / 10, 40).build();
-                        addDrawableChild(buttonWidget);
-                        componentIndex++;
-                    }
+                    var component = configValue.achieveComponent(name(), screen);
+                    addDrawableChild(component);
                 }
             }
 
             @Override
             public void render(DrawContext context, int mouseX, int mouseY, float delta) {
                 super.render(context, mouseX, mouseY, delta);
-                int componentIndex = 0;
-                for (Map.Entry<String, Object> entry : configMap.entrySet()) {
-                    String configName = entry.getKey();
+                for (Map.Entry<String, Value> entry : configMap.entrySet()) {
                     var configValue = entry.getValue();
-                    if (configValue instanceof BooleanValue) {
-                        context.drawTextWithShadow(this.textRenderer, Text.of(configName), this.width * 1 / 10, 50 * componentIndex + 10, 0xFFFFFF);
-                    }
-                    componentIndex++;
+                    configValue.render(context, name(), screen);
                 }
             }
         };
@@ -81,6 +68,4 @@ public abstract class ScreenConfig extends EventListener {
 
     public void onRenderEvent(DrawContext context, RenderTickCounter tickCounter) {
     }
-
-    ;
 }

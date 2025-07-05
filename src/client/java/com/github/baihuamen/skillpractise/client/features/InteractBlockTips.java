@@ -1,6 +1,6 @@
 package com.github.baihuamen.skillpractise.client.features;
 
-import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.events.returnableevents.PlayerInteractionBlockEvent;
 import com.github.baihuamen.skillpractise.client.screen.ScreenConfig;
 import net.minecraft.text.Text;

@@ -1,6 +1,6 @@
 package com.github.baihuamen.skillpractise.client.screen;
 
-import com.github.baihuamen.skillpractise.client.config.utils.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 
 public class SkillPractiseScreen extends ScreenConfig {
