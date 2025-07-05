@@ -37,13 +37,26 @@ public class ConfigManager {
 
     static {
         JsonObject jsonObject = FileWriter.readConfig(configPath.resolve("config.json"));
+
+        // 外层配置，按屏幕分
         jsonObject.entrySet().forEach(entry -> {
+            //获取内层配置，按单键值的键值分
             JsonObject configJsonObject = entry.getValue().getAsJsonObject();
+            //遍历内层配置，按单键值的键值分
             configJsonObject.entrySet().forEach(configEntry -> {
                 if (configEntry.getValue().isJsonPrimitive()) {
                     BooleanValue booleanValue = new BooleanValue(entry.getKey(), configEntry.getKey(), configEntry.getValue()
                             .getAsBoolean());
-                    configMap.put(entry.getKey(), new HashMap<>(Map.of(configEntry.getKey(), booleanValue)));
+
+                    var currentConfigMap = configMap.get(entry.getKey());
+                    if (currentConfigMap != null) {
+                        currentConfigMap.put(configEntry.getKey(), booleanValue);
+                    }
+                    else {
+                        currentConfigMap = new HashMap<>();
+                        currentConfigMap.put(configEntry.getKey(), booleanValue);
+                    }
+                    configMap.put(entry.getKey(),currentConfigMap);
                 }
             });
         });
