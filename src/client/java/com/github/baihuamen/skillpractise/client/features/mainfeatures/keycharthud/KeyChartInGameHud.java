@@ -61,7 +61,7 @@ public class KeyChartInGameHud extends EventListener {
     public static MultiValueDebugSampleLogImpl rightKeyChartLog = new MultiValueDebugSampleLogImpl(1);
 
     @SuppressWarnings("unused")
-    private final static Class<?> tickEvent = registerEvent(TickEvent.class, event -> {
+    private final Class<?> tickEvent = registerEvent(TickEvent.class, event -> {
         if (KeyStroke.updateMap.get(KeyStrokeType.W).isRelease) {
             forwardKeyChartLog.push(KeyStroke.updateMap.get(KeyStrokeType.W).interval);
             KeyStroke.updateMap.get(KeyStrokeType.W).interval = 0;
@@ -82,6 +82,12 @@ public class KeyChartInGameHud extends EventListener {
             KeyStroke.updateMap.get(KeyStrokeType.D).interval = 0;
             KeyStroke.updateMap.get(KeyStrokeType.D).isRelease = false;
         }
+
+        this.backKeyChartHud.name = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("BackwardKey");
+        this.forwardKeyChartHud.name = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("ForwardKey");
+        this.leftKeyChartHud.name = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("LeftKey");
+        this.rightKeyChartHud.name = ScreenManager.INSTANCE.getInstance(KeyChartHudConfigScreen.class).getTranslate("RightKey");
+
     });
 
     @SuppressWarnings("unused")
