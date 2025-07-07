@@ -33,7 +33,7 @@ package com.github.baihuamen.skillpractise.client.features.mainfeatures;
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
 import com.github.baihuamen.skillpractise.client.event.events.returnableevents.PlayerInteractionBlockEvent;
 import com.github.baihuamen.skillpractise.client.features.ScreenConfig;
-import net.minecraft.text.Text;
+import com.github.baihuamen.skillpractise.client.utils.hud.TerminalInfo;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -60,12 +60,12 @@ public class InteractBlockTips extends ScreenConfig {
         if (!mc().options.useKey.isPressed()) return;
         if (((BlockHitResult) hitResult).getSide() == Direction.UP) {
             // 绿色字体消息
-            player().sendMessage(Text.of("交互过早，交互到了方块上方"), true);
+            TerminalInfo.displayLog("交互过早，交互到了方块上方");
         }
         if (hitResult.getType() == HitResult.Type.MISS) {
-            player().sendMessage(Text.of("交互过晚，没有交互到方块"), true);
+            TerminalInfo.displayLog("交互过晚，没有交互到方块");
         }
         if (event.actionResult() == ActionResult.SUCCESS)
-            player().sendMessage(Text.of("交互成功"), true);
+            TerminalInfo.displayLog("交互成功");
     });
 }
