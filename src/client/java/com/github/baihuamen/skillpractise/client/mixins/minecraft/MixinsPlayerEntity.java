@@ -31,7 +31,7 @@
 package com.github.baihuamen.skillpractise.client.mixins.minecraft;
 
 import com.github.baihuamen.skillpractise.client.features.mainconfigscreen.ScreenManager;
-import com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud.DisableCreativeFly;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.DisableCreativeFly;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;

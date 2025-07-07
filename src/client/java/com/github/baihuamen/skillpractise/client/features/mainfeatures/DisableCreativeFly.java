@@ -28,7 +28,7 @@
  * 请访问 <https://www.gnu.org/licenses/> 查看。
  */
 
-package com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud;
+package com.github.baihuamen.skillpractise.client.features.mainfeatures;
 
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
 import com.github.baihuamen.skillpractise.client.features.ScreenConfig;

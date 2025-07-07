@@ -33,11 +33,8 @@ package com.github.baihuamen.skillpractise.client.features.mainconfigscreen;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import com.github.baihuamen.skillpractise.client.event.events.commonevents.TickEvent;
 import com.github.baihuamen.skillpractise.client.features.ScreenConfig;
-import com.github.baihuamen.skillpractise.client.features.mainfeatures.BridgeSpeedCounter;
-import com.github.baihuamen.skillpractise.client.features.mainfeatures.CPSCounterHud;
-import com.github.baihuamen.skillpractise.client.features.mainfeatures.InteractBlockTips;
-import com.github.baihuamen.skillpractise.client.features.mainfeatures.NightVisionRender;
-import com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud.DisableCreativeFly;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.*;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.DisableCreativeFly;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud.KeyChartHudConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -92,6 +89,7 @@ public class ScreenManager extends EventListener {
         screensMap.put(InteractBlockTips.class, new InteractBlockTips());
         screensMap.put(NightVisionRender.class, new NightVisionRender());
         screensMap.put(DisableCreativeFly.class,new DisableCreativeFly());
+        screensMap.put(KeyDisplayHud.class,new KeyDisplayHud());
         screensMap.forEach((screenConfigClass, screenConfig) -> screenConfig.initialize());
         screen = new Screen(Text.of("SkillPractise")) {
             @Override
