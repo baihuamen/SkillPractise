@@ -34,6 +34,7 @@ import com.github.baihuamen.skillpractise.client.config.ConfigManager;
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
 import com.github.baihuamen.skillpractise.client.config.utils.values.Value;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
+import com.github.baihuamen.skillpractise.client.features.mainconfigscreen.ScreenManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
@@ -43,9 +44,12 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
 
 @Environment(EnvType.CLIENT)
 public abstract class ScreenConfig extends EventListener {
@@ -84,6 +88,15 @@ public abstract class ScreenConfig extends EventListener {
                     var configValue = entry.getValue();
                     configValue.render(context, name(), screen);
                 }
+            }
+
+            @Override
+            public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+                 if(keyCode == GLFW.GLFW_KEY_ESCAPE){
+                    mc().setScreen(ScreenManager.INSTANCE.screen);
+                    return true;
+                }
+                return super.keyPressed(keyCode, scanCode, modifiers);
             }
         };
     }

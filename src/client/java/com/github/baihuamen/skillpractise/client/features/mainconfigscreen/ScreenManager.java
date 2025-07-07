@@ -58,7 +58,7 @@ import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
 public class ScreenManager extends EventListener {
 
 
-    private Screen screen;
+    public Screen screen;
     private final Map<Class<? extends ScreenConfig>, ScreenConfig> screensMap = new HashMap<>();
 
 
