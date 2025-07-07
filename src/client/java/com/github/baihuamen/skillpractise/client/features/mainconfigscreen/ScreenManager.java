@@ -37,6 +37,7 @@ import com.github.baihuamen.skillpractise.client.features.mainfeatures.BridgeSpe
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.CPSCounterHud;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.InteractBlockTips;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.NightVisionRender;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud.DisableCreativeFly;
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.keycharthud.KeyChartHudConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -90,6 +91,7 @@ public class ScreenManager extends EventListener {
         screensMap.put(CPSCounterHud.class, new CPSCounterHud());
         screensMap.put(InteractBlockTips.class, new InteractBlockTips());
         screensMap.put(NightVisionRender.class, new NightVisionRender());
+        screensMap.put(DisableCreativeFly.class,new DisableCreativeFly());
         screensMap.forEach((screenConfigClass, screenConfig) -> screenConfig.initialize());
         screen = new Screen(Text.of("SkillPractise")) {
             @Override
