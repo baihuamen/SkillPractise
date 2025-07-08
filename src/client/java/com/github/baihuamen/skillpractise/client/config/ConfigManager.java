@@ -31,6 +31,7 @@
 package com.github.baihuamen.skillpractise.client.config;
 
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.IntValue;
 import com.github.baihuamen.skillpractise.client.config.utils.values.Value;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
@@ -73,7 +74,10 @@ public class ConfigManager {
 
     private static long lastSaveTime = 0;
 
-    public static final List<Value> valueTypesList = List.of(new BooleanValue(null, null, false));
+    public static final List<Value> valueTypesList = List.of(
+            new BooleanValue(null, null, false),
+            new IntValue(null, null, 0)
+    );
 
     static {
         JsonObject jsonObject = FileWriter.readConfig(configPath.resolve("config.json"));

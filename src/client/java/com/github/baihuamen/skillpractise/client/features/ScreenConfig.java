@@ -32,6 +32,7 @@ package com.github.baihuamen.skillpractise.client.features;
 
 import com.github.baihuamen.skillpractise.client.config.ConfigManager;
 import com.github.baihuamen.skillpractise.client.config.utils.values.BooleanValue;
+import com.github.baihuamen.skillpractise.client.config.utils.values.IntValue;
 import com.github.baihuamen.skillpractise.client.config.utils.values.Value;
 import com.github.baihuamen.skillpractise.client.event.EventListener;
 import com.github.baihuamen.skillpractise.client.features.mainconfigscreen.ScreenManager;
@@ -104,6 +105,13 @@ public abstract class ScreenConfig extends EventListener {
     public BooleanValue Boolean(String name, boolean value) {
         BooleanValue booleanValue = new BooleanValue(this.name(), name, value);
         BooleanValue configValue = ConfigManager.config(this.name(), name, booleanValue);
+        configMap.put(name, configValue);
+        return configValue;
+    }
+
+    public IntValue Int(String name, int value) {
+        IntValue intValue = new IntValue(this.name(), name, value);
+        IntValue configValue = ConfigManager.config(this.name(), name, intValue);
         configMap.put(name, configValue);
         return configValue;
     }
