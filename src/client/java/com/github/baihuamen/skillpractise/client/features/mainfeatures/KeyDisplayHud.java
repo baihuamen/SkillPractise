@@ -36,6 +36,8 @@ import com.github.baihuamen.skillpractise.client.features.ScreenConfig;
 import com.github.baihuamen.skillpractise.client.utils.hud.ingame.BottomKeyDisplayHud;
 import net.minecraft.util.Colors;
 
+import java.util.List;
+
 import static com.github.baihuamen.skillpractise.client.utils.MinecraftUtils.mc;
 
 public class KeyDisplayHud extends ScreenConfig {
@@ -45,89 +47,102 @@ public class KeyDisplayHud extends ScreenConfig {
     private final BottomKeyDisplayHud leftKeyDisplayHud = new BottomKeyDisplayHud("A", Colors.BLACK, Colors.WHITE);
     private final BottomKeyDisplayHud rightKeyDisplayHud = new BottomKeyDisplayHud("D", Colors.BLACK, Colors.WHITE);
     private final BottomKeyDisplayHud leftMouseDisplayHud = new BottomKeyDisplayHud("LEFT", Colors.BLACK, Colors.WHITE);
-    private final BottomKeyDisplayHud rightMouseDisplayHud = new BottomKeyDisplayHud("RIGHT", Colors.BLACK, Colors.WHITE);
+    private final BottomKeyDisplayHud rightMouseDisplayHud = new BottomKeyDisplayHud("RIGHT", Colors.BLACK,
+            Colors.WHITE);
     private final BottomKeyDisplayHud spaceKeyDisplayHud = new BottomKeyDisplayHud("SPACE", Colors.BLACK, Colors.WHITE);
 
     private final BooleanValue enabled = Boolean("Enabled", true);
     private final BooleanValue textShadow = Boolean("TextShadow", false);
 
+    public static boolean isLeftMousePressed = false;
+    public static boolean isRightMousePressed = false;
+    public static boolean isSpacePressed = false;
+    public static boolean isLeftKeyPressed = false;
+    public static boolean isRightKeyPressed = false;
+    public static boolean isForwardKeyPressed = false;
+    public static boolean isBackKeyPressed = false;
+
+    private final List<BottomKeyDisplayHud> buttomList =
+            List.of(forwardKeyDisplayHud,
+                    backKeyDisplayHud,
+                    leftKeyDisplayHud,
+                    rightKeyDisplayHud,
+                    leftMouseDisplayHud,
+                    rightMouseDisplayHud,
+                    spaceKeyDisplayHud
+            );
+
     @SuppressWarnings("unused")
     private final Class<?> renderHandler = registerEvent(DrawContextEvent.class, drawContextEvent -> {
         if (!enabled.value) return;
-        if(mc().inGameHud == null) return;
+        if (mc().inGameHud == null) return;
         forwardKeyDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 50, 25, 25, 25);
         backKeyDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 50, 50, 25, 25);
         leftKeyDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 75, 50, 25, 25);
         rightKeyDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 25, 50, 25, 25);
-        leftMouseDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 75, 75,  37, 25);
-        rightMouseDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 37, 75,37, 25);
+        leftMouseDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 75, 75, 37, 25);
+        rightMouseDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 37, 75, 37, 25);
         spaceKeyDisplayHud.setBoarder(drawContextEvent.context.getScaledWindowWidth() - 75, 100, 75, 25);
-        forwardKeyDisplayHud.setTextShadow(textShadow.value);
-        backKeyDisplayHud.setTextShadow(textShadow.value);
-        leftKeyDisplayHud.setTextShadow(textShadow.value);
-        rightKeyDisplayHud.setTextShadow(textShadow.value);
-        leftMouseDisplayHud.setTextShadow(textShadow.value);
-        rightMouseDisplayHud.setTextShadow(textShadow.value);
-        spaceKeyDisplayHud.setTextShadow(textShadow.value);
-        if (mc().options.forwardKey.isPressed()) {
+        buttomList.forEach(bottomKeyDisplayHud -> bottomKeyDisplayHud.setTextShadow(textShadow.value));
+        if (isForwardKeyPressed || mc().options.forwardKey.isPressed()) {
             forwardKeyDisplayHud.setAreaColor(Colors.WHITE);
             forwardKeyDisplayHud.setTextColor(Colors.BLACK);
+            isForwardKeyPressed = false;
         } else {
             forwardKeyDisplayHud.setAreaColor(Colors.BLACK);
             forwardKeyDisplayHud.setTextColor(Colors.WHITE);
         }
-        if (mc().options.backKey.isPressed()) {
+        if (isBackKeyPressed || mc().options.backKey.isPressed()) {
             backKeyDisplayHud.setAreaColor(Colors.WHITE);
             backKeyDisplayHud.setTextColor(Colors.BLACK);
+            isBackKeyPressed = false;
         } else {
             backKeyDisplayHud.setAreaColor(Colors.BLACK);
             backKeyDisplayHud.setTextColor(Colors.WHITE);
         }
-        if (mc().options.leftKey.isPressed()) {
+        if (isLeftKeyPressed || mc().options.leftKey.isPressed()) {
             leftKeyDisplayHud.setAreaColor(Colors.WHITE);
             leftKeyDisplayHud.setTextColor(Colors.BLACK);
+            isLeftKeyPressed = false;
         } else {
             leftKeyDisplayHud.setAreaColor(Colors.BLACK);
             leftKeyDisplayHud.setTextColor(Colors.WHITE);
         }
-        if (mc().options.rightKey.isPressed()) {
-            rightKeyDisplayHud.setAreaColor(Colors.WHITE);
-            rightKeyDisplayHud.setTextColor(Colors.BLACK);
-        } else {
-            rightKeyDisplayHud.setAreaColor(Colors.BLACK);
-            rightKeyDisplayHud.setTextColor(Colors.WHITE);
-        }
-        if(mc().options.attackKey.wasPressed() || mc().options.attackKey.isPressed()){
+        if (isRightKeyPressed || mc().options.rightKey.isPressed()) {
             leftMouseDisplayHud.setAreaColor(Colors.WHITE);
             leftMouseDisplayHud.setTextColor(Colors.BLACK);
-        }
-        else{
+            isRightKeyPressed = false;
+        } else {
             leftMouseDisplayHud.setAreaColor(Colors.BLACK);
             leftMouseDisplayHud.setTextColor(Colors.WHITE);
         }
-        if(mc().options.useKey.wasPressed() || mc().options.useKey.isPressed()){
+        if (isLeftMousePressed || mc().options.attackKey.isPressed()) {
+            leftMouseDisplayHud.setAreaColor(Colors.WHITE);
+            leftMouseDisplayHud.setTextColor(Colors.BLACK);
+            isLeftMousePressed = false;
+        } else {
+            leftMouseDisplayHud.setAreaColor(Colors.BLACK);
+            leftMouseDisplayHud.setTextColor(Colors.WHITE);
+        }
+        if (isRightMousePressed || mc().options.useKey.isPressed()) {
             rightMouseDisplayHud.setAreaColor(Colors.WHITE);
             rightMouseDisplayHud.setTextColor(Colors.BLACK);
-        }
-        else {
+            isRightMousePressed = false;
+        } else {
             rightMouseDisplayHud.setAreaColor(Colors.BLACK);
             rightMouseDisplayHud.setTextColor(Colors.WHITE);
         }
-        if (mc().options.jumpKey.isPressed()) {
+        if (isSpacePressed || mc().options.jumpKey.isPressed()) {
             spaceKeyDisplayHud.setAreaColor(Colors.WHITE);
             spaceKeyDisplayHud.setTextColor(Colors.BLACK);
+            isSpacePressed = false;
         } else {
             spaceKeyDisplayHud.setAreaColor(Colors.BLACK);
             spaceKeyDisplayHud.setTextColor(Colors.WHITE);
         }
-        forwardKeyDisplayHud.render(drawContextEvent.context);
-        backKeyDisplayHud.render(drawContextEvent.context);
-        leftKeyDisplayHud.render(drawContextEvent.context);
-        rightKeyDisplayHud.render(drawContextEvent.context);
-        leftMouseDisplayHud.render(drawContextEvent.context);
-        rightMouseDisplayHud.render(drawContextEvent.context);
-        spaceKeyDisplayHud.render(drawContextEvent.context);
+        buttomList.forEach(bottomKeyDisplayHud -> bottomKeyDisplayHud.render(drawContextEvent.context));
     });
+
     @Override
     public String name() {
         return "KeyDisplayHud";

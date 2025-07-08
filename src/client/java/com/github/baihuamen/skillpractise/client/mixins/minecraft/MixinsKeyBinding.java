@@ -31,6 +31,7 @@
 package com.github.baihuamen.skillpractise.client.mixins.minecraft;
 
 import com.github.baihuamen.skillpractise.client.features.mainfeatures.CPSCounterHud;
+import com.github.baihuamen.skillpractise.client.features.mainfeatures.KeyDisplayHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,9 +50,26 @@ public abstract class MixinsKeyBinding {
     private void setPressed(boolean pressed, CallbackInfo ci) {
         if (this.equals(MinecraftClient.getInstance().options.attackKey) && pressed) {
             CPSCounterHud.leftClickMap.put(System.currentTimeMillis(), true);
+            KeyDisplayHud.isLeftMousePressed = true;
         }
         if (this.equals(MinecraftClient.getInstance().options.useKey) && pressed) {
             CPSCounterHud.rightClickMap.put(System.currentTimeMillis(), true);
+            KeyDisplayHud.isRightMousePressed = true;
+        }
+        if(this.equals(MinecraftClient.getInstance().options.forwardKey) && pressed){
+            KeyDisplayHud.isForwardKeyPressed = true;
+        }
+        if(this.equals(MinecraftClient.getInstance().options.backKey) && pressed){
+            KeyDisplayHud.isBackKeyPressed = true;
+        }
+        if(this.equals(MinecraftClient.getInstance().options.leftKey) && pressed){
+            KeyDisplayHud.isLeftKeyPressed = true;
+        }
+        if(this.equals(MinecraftClient.getInstance().options.rightKey) && pressed){
+            KeyDisplayHud.isRightKeyPressed = true;
+        }
+        if(this.equals(MinecraftClient.getInstance().options.jumpKey) && pressed){
+            KeyDisplayHud.isSpacePressed = true;
         }
     }
 }
