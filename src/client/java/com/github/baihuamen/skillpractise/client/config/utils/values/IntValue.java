@@ -65,6 +65,7 @@ public class IntValue extends EventListener implements Value{
 
         numberInputFieldWidget = new NumberInputFieldWidget(mc().textRenderer, 0, 0, 100, 20, Text.of(""));
         numberInputFieldWidget.setMaxLength(9);
+        numberInputFieldWidget.setText(String.valueOf(value));
     });
     public IntValue(String screenConfig, String name, int value){
         this.value = value;
