@@ -90,6 +90,7 @@ public class ScreenManager extends EventListener {
         screensMap.put(NightVisionRender.class, new NightVisionRender());
         screensMap.put(DisableCreativeFly.class,new DisableCreativeFly());
         screensMap.put(KeyDisplayHud.class,new KeyDisplayHud());
+        screensMap.put(AutoRotate.class,new AutoRotate());
         screensMap.forEach((screenConfigClass, screenConfig) -> screenConfig.initialize());
         screen = new Screen(Text.of("SkillPractise")) {
             @Override

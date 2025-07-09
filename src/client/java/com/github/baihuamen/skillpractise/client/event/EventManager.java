@@ -58,11 +58,12 @@ public final class EventManager {
         register();
     }
 
-    private void register(){
+    private void register() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> callEvent(new TickEvent()));
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> callEvent(new ClientStartedEvent()));
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> callEvent(new ClientEndedEvent()));
     }
+
     public <T> void registerEvent(Class<T> eventType, Consumer<T> consumer) {
         eventMap.computeIfAbsent(eventType, k -> new ArrayList<>()).add(consumer);
     }
@@ -71,7 +72,7 @@ public final class EventManager {
         Class<?> eventType = event.getClass();
         if (eventMap.containsKey(eventType)) {
             for (Consumer<Object> consumer : eventMap.get(eventType)) {
-                if(eventType.isInstance(event)){
+                if (eventType.isInstance(event)) {
                     consumer.accept(event);
                 }
             }

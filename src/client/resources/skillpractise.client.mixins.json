@@ -5,12 +5,14 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "minecraft.MixinsClientInteraction",
-    "minecraft.MixinsKeyBinding"
+    "minecraft.MixinsKeyBinding",
+    "minecraft.MixinsNetworkHandler",
+    "minecraft.MixinsPlayerEntity"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "minecraft.MixinsPlayerEntity"
+
   ]
 }
