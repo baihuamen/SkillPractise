@@ -109,12 +109,12 @@ public class KeyDisplayHud extends ScreenConfig {
             leftKeyDisplayHud.setTextColor(Colors.WHITE);
         }
         if (isRightKeyPressed || mc().options.rightKey.isPressed()) {
-            leftMouseDisplayHud.setAreaColor(Colors.WHITE);
-            leftMouseDisplayHud.setTextColor(Colors.BLACK);
+            rightKeyDisplayHud.setAreaColor(Colors.WHITE);
+            rightKeyDisplayHud.setTextColor(Colors.BLACK);
             isRightKeyPressed = false;
         } else {
-            leftMouseDisplayHud.setAreaColor(Colors.BLACK);
-            leftMouseDisplayHud.setTextColor(Colors.WHITE);
+            rightKeyDisplayHud.setAreaColor(Colors.BLACK);
+            rightKeyDisplayHud.setTextColor(Colors.WHITE);
         }
         if (isLeftMousePressed || mc().options.attackKey.isPressed()) {
             leftMouseDisplayHud.setAreaColor(Colors.WHITE);
